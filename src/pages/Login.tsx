@@ -2,10 +2,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../../@/components/shad/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import LoginFormSchemaType, { schema } from "../validationModels/login";
-
-const onSubmit: SubmitHandler<LoginFormSchemaType> = (data) => {
-  console.log(data);
-};
+import useLogin from "../hooks/useLogin";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -13,6 +12,24 @@ const Login = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormSchemaType>({ resolver: zodResolver(schema) });
+
+  const navigate = useNavigate();
+  const [submitError, setSubmitError] = useState<string | null | unknown>(null);
+  const [submitSuccess, setSubmitSuccess] = useState<Boolean>(false);
+
+  const onSubmit: SubmitHandler<LoginFormSchemaType> = async (data) => {
+    console.log(data);
+    const { res, error, success } = await useLogin(data);
+
+    setSubmitError(error?.response?.data);
+    if (success) {
+      setSubmitSuccess(success);
+      setTimeout(() => {
+        navigate("/home", { replace: true });
+      }, 1000);
+    }
+  };
+
   return (
     <section id="login" className="flex justify-center items-center">
       <div className="pt-[60px]">
@@ -24,7 +41,7 @@ const Login = () => {
           <div>
             <Input
               placeholder="email"
-              className="w-full"
+              className="w-full text-black"
               {...register("email")}
             />
             {errors.email && (
@@ -36,7 +53,7 @@ const Login = () => {
           <div>
             <Input
               placeholder="password"
-              className="w-full"
+              className="w-full text-black"
               {...register("password")}
             />
             {errors.password && (
@@ -45,6 +62,12 @@ const Login = () => {
               </span>
             )}
           </div>
+          {typeof submitError === "string" && submitError && (
+            <p className="text-red-800 ml-2 block">{submitError}</p>
+          )}
+          {submitSuccess && (
+            <p className=" text-green-700 ml-2">LoggedIn Successfully</p>
+          )}
           <div className="flex justify-end">
             <button
               type="submit"

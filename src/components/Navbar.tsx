@@ -36,7 +36,7 @@ const Navbar = () => {
               onClick={() => setShowMenu(!showMenu)}
             />
           </div>
-          <div className="items md:flex items-center hidden">
+          <div className=" md:flex items-center hidden">
             <ul className="flex gap-5 text-white items-center">
               <li>Change </li>
               <li>Notification </li>
@@ -85,7 +85,7 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        className={`menus block md:hidden   absolute w-full bg-[#2c2d2f] min-h-[220px] top-0 text-white ${
+        className={`menus z-10 block md:hidden   absolute w-full bg-[#2c2d2f] min-h-[220px] top-0 text-white ${
           showMenu ? "translate-y-0" : "translate-y-[-400px]"
         } `}
       >
@@ -107,7 +107,7 @@ const Navbar = () => {
               <SelectTrigger className="w-[120px] border-none focus-visible:outline-white bg-gray-500 rounded-lg px-2 py-2   ">
                 <SelectValue placeholder="Options" />
               </SelectTrigger>
-              <SelectContent className="w-[120px] h-[104px]  rounded-lg mt-2 cursor-pointer text-white text-md bg-gray-500 ">
+              <SelectContent className="w-[120px] h-[104px] z-20 rounded-lg mt-2 cursor-pointer text-white text-md bg-gray-500 ">
                 {arr.map((a, i) => (
                   <SelectItem
                     key={i}

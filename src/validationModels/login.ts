@@ -4,11 +4,9 @@ export const schema = z.object({
   email: z
     .string()
     .min(1, "Email is required")
-    .max(50, "Provide a valid Email"),
-  password: z
-    .string()
-    .min(1, "Password is required")
-    .min(8, "Password must have more than 8 characters"),
+    .max(50, "Provide a valid Email")
+    .email("Email format is Invalid"),
+  password: z.string().min(5, "Password is Invalid"),
 });
 
 type LoginFormSchemaType = z.infer<typeof schema>;
