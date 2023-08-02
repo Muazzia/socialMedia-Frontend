@@ -67,7 +67,7 @@ const Navbar = () => {
                   <SelectTrigger className="w-[110px] h-[40px] border border-white focus-visible:outline-white focus-visible:outline-1">
                     <SelectValue placeholder="Options" />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-500 w-[150px] mt-2 px-[8px] text-white  py-2">
+                  <SelectContent className="cursor-pointer bg-gray-500 w-[150px] mt-2 px-[8px] text-white  py-2">
                     {arr.map((a, i) => (
                       <SelectItem
                         key={i}

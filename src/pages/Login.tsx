@@ -31,29 +31,33 @@ const Login = () => {
       <div className="pt-[60px]">
         <h2 className="text-2xl font-black mb-4">Login</h2>
         <form
-          className="flex flex-col gap-2 w-[280px] "
+          className="flex flex-col gap-2 md:gap-5 w-[280px] "
           onSubmit={handleSubmit(onSubmit)}
         >
-          <Input
-            placeholder="email"
-            className="w-full"
-            {...register("email")}
-          />
-          {errors.email && (
-            <span className="text-red-800 block ml-2">
-              {errors.email?.message}
-            </span>
-          )}
-          <Input
-            placeholder="password"
-            className="w-full"
-            {...register("password")}
-          />
-          {errors.password && (
-            <span className="text-red-800 block ml-2">
-              {errors.password?.message}
-            </span>
-          )}
+          <div>
+            <Input
+              placeholder="email"
+              className="w-full"
+              {...register("email")}
+            />
+            {errors.email && (
+              <span className="text-red-800 block ml-2">
+                {errors.email?.message}
+              </span>
+            )}
+          </div>
+          <div>
+            <Input
+              placeholder="password"
+              className="w-full"
+              {...register("password")}
+            />
+            {errors.password && (
+              <span className="text-red-800 block ml-2">
+                {errors.password?.message}
+              </span>
+            )}
+          </div>
           <div className="flex justify-end">
             <button
               type="submit"
