@@ -1,22 +1,9 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../../@/components/shad/ui/input";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import LoginFormSchemaType, { schema } from "../validationModels/login";
 
-const schema = z.object({
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .max(50, "Provide a valid Email"),
-  password: z
-    .string()
-    .min(1, "Password is required")
-    .min(8, "Password must have more than 8 characters"),
-});
-
-type FormSchemaType = z.infer<typeof schema>;
-
-const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
+const onSubmit: SubmitHandler<LoginFormSchemaType> = (data) => {
   console.log(data);
 };
 
@@ -25,7 +12,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormSchemaType>({ resolver: zodResolver(schema) });
+  } = useForm<LoginFormSchemaType>({ resolver: zodResolver(schema) });
   return (
     <section id="login" className="flex justify-center items-center">
       <div className="pt-[60px]">
