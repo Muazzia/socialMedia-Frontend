@@ -1,11 +1,13 @@
 import { AiOutlineUserDelete } from "react-icons/ai";
-import { UserF } from "../store/store";
+import Store, { UserF } from "../store/store";
+import useAddFriend from "../hooks/useAddFriend";
 
 interface Props {
   data: UserF;
 }
 
 const FriendListComp = ({ data }: Props) => {
+  const setUserFrindsArr = Store((s) => s.setUserFrindsArr);
   return (
     <div className="one flex items-center justify-between">
       <div className="image flex items-center gap-2">
@@ -22,7 +24,13 @@ const FriendListComp = ({ data }: Props) => {
         </div>
       </div>
       <div className="addFriend ">
-        <AiOutlineUserDelete size={23} />
+        <AiOutlineUserDelete
+          size={23}
+          onClick={async () => {
+            const { res } = await useAddFriend(data._id);
+            setUserFrindsArr(res?.data);
+          }}
+        />
       </div>
     </div>
   );
