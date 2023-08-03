@@ -43,6 +43,7 @@ const Login = () => {
               placeholder="email"
               className="w-full text-black"
               {...register("email")}
+              autoComplete="email"
             />
             {errors.email && (
               <span className="text-red-800 block ml-2">
@@ -54,6 +55,8 @@ const Login = () => {
             <Input
               placeholder="password"
               className="w-full text-black"
+              autoComplete="current-password"
+              type="password"
               {...register("password")}
             />
             {errors.password && (
@@ -71,7 +74,7 @@ const Login = () => {
           <div className="flex justify-end">
             <button
               type="submit"
-              className="bg-black text-white p-2 rounded-md"
+              className="bg-gray-600 border border-white text-white p-2 rounded-md"
               disabled={isSubmitting}
             >
               Submit

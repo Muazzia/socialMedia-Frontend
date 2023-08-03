@@ -14,7 +14,6 @@ const useLogin = async (data: Data) => {
     res = await api.post("/auth/login", {
       ...data,
     });
-    console.log(res.data);
 
     const authToken = res.headers["x-auth-token"];
 

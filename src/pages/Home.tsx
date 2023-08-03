@@ -85,7 +85,9 @@ const Home = () => {
                     key={i}
                     data={p}
                     isFriend={
-                      userFriends.find((e) => e._id === p.userId) ? true : false
+                      userFriends?.find((e) => e._id === p.userId)
+                        ? true
+                        : false
                     }
                   />
                 ))}

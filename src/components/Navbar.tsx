@@ -9,13 +9,23 @@ import {
 } from "../../@/components/shad/ui/select";
 import { Input } from "../../@/components/shad/ui/input";
 import { useState } from "react";
+import Store from "../store/store";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const arr = ["light", "dark", "brown"];
   const [showMenu, setShowMenu] = useState(false);
 
+  const userName = Store((s) => s.userName);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    navigate("/");
+  };
+
   return (
-    <nav className="bg-gray-700 border-b border-b-black relative">
+    <nav className="bg-black border-b border-b-black relative">
       <div className="mx-4 lg:max-w-[1015px] lg:mx-auto flex p-3 justify-between items-center">
         <div className="left text-xl text-white flex justify-between items-center gap-2">
           <div className="logo">Social Media</div>
@@ -36,7 +46,7 @@ const Navbar = () => {
               onClick={() => setShowMenu(!showMenu)}
             />
           </div>
-          <div className=" md:flex items-center hidden">
+          <div className="hidden md:flex items-center ">
             <ul className="flex gap-5 text-white items-center">
               <li>Change </li>
               <li>Notification </li>
@@ -63,20 +73,24 @@ const Navbar = () => {
                 </Select>
               </li> */}
               <li>
-                <Select>
+                <Select
+                  onValueChange={(e) => {
+                    console.log(e);
+                    if (e === "Logout") {
+                      handleLogout();
+                    }
+                  }}
+                >
                   <SelectTrigger className="w-[110px] h-[40px] border border-white focus-visible:outline-white focus-visible:outline-1">
-                    <SelectValue placeholder="Options" />
+                    <SelectValue placeholder={userName} />
                   </SelectTrigger>
                   <SelectContent className="cursor-pointer bg-gray-500 w-[150px] mt-2 px-[8px] text-white  py-2">
-                    {arr.map((a, i) => (
-                      <SelectItem
-                        key={i}
-                        value={a}
-                        className="px-2 py-1 hover:bg-gray-300 rounded-md border-none focus-visible:outline-none hover:border-none hover:focus-visible:outline-none"
-                      >
-                        {a}
-                      </SelectItem>
-                    ))}
+                    <SelectItem
+                      value={"Logout"}
+                      className="px-2 py-1 hover:bg-gray-300 rounded-md border-none focus-visible:outline-none hover:border-none hover:focus-visible:outline-none"
+                    >
+                      Logout
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </li>
@@ -103,20 +117,25 @@ const Navbar = () => {
           <li>Bell</li>
           <li>Help </li>
           <li>
-            <Select>
-              <SelectTrigger className="w-[120px] border-none focus-visible:outline-white bg-gray-500 rounded-lg px-2 py-2   ">
-                <SelectValue placeholder="Options" />
+            <Select
+              onValueChange={(e) => {
+                console.log(e);
+                if (e === "Logout") {
+                  handleLogout();
+                  setShowMenu(false);
+                }
+              }}
+            >
+              <SelectTrigger className="w-[110px] h-[40px] border border-white focus-visible:outline-white focus-visible:outline-1">
+                <SelectValue placeholder={userName || "UserName"} />
               </SelectTrigger>
-              <SelectContent className="w-[120px] h-[104px] z-20 rounded-lg mt-2 cursor-pointer text-white text-md bg-gray-500 ">
-                {arr.map((a, i) => (
-                  <SelectItem
-                    key={i}
-                    value={a}
-                    className="px-2 py-1  border-none focus-visible:outline-none hover:focus-visible:outline-white hover:border-none "
-                  >
-                    {a}
-                  </SelectItem>
-                ))}
+              <SelectContent className="cursor-pointer z-10 bg-gray-500 w-[150px] mt-2 px-[8px] text-white  py-2">
+                <SelectItem
+                  value={"Logout"}
+                  className="px-2 py-1 hover:bg-gray-300 rounded-md border-none focus-visible:outline-none hover:border-none hover:focus-visible:outline-none"
+                >
+                  Logout
+                </SelectItem>
               </SelectContent>
             </Select>
           </li>

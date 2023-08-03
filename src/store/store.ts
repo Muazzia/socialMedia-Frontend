@@ -11,6 +11,8 @@ type UserF = {
 
 type S = {
   userId: string;
+  userName: string;
+  setUserName: (name: string) => void;
   setUserId: (id: string) => void;
   userFriends: UserF[];
   // setUserFriends: (id: string) => void;
@@ -20,6 +22,8 @@ type S = {
 
 const Store = create<S>((set) => ({
   userId: "",
+  userName: "",
+  setUserName: (name: string) => set(() => ({ userName: name })),
   setUserId: (id: string) => set(() => ({ userId: id })),
   userFriends: [],
 

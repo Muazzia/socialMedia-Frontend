@@ -6,6 +6,8 @@ import useProfileCard, { User } from "../hooks/useProfileCard";
 import Store from "../store/store";
 
 const ProfileCard = () => {
+  const setUserName = Store((s) => s.setUserName);
+
   const [result, setResult] = useState({} as User);
   const [error, setError] = useState<string | unknown>("");
   const [success, setSuccess] = useState<Boolean>();
@@ -15,6 +17,7 @@ const ProfileCard = () => {
 
       if (res) {
         setResult(res.data);
+        setUserName(res.data.firstName + "" + res.data.lastName);
       }
       if (err) setError(err.response?.data);
       setSuccess(success);

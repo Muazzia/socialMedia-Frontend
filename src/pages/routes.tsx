@@ -5,6 +5,8 @@ import Register from "./Register";
 import Home from "./Home";
 import UserProfile from "./UserProfile";
 
+const token = localStorage.getItem("authToken");
+
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -12,8 +14,8 @@ const routes = createBrowserRouter([
     children: [
       { index: true, element: <Login /> },
       { path: "register", element: <Register /> },
-      { path: "home", element: <Home /> },
-      { path: "profile/:id", element: <UserProfile /> },
+      { path: "home", element: token ? <Home /> : <Login /> },
+      { path: "profile/:id", element: token ? <UserProfile /> : <Login /> },
     ],
   },
 ]);
