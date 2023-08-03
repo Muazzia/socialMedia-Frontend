@@ -10,15 +10,18 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import HomeSchemaForm, { schema } from "../validationModels/home";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useAddPost from "../hooks/useAddPost";
+import FriendListComp from "../components/FriendListComp";
 
 const Home = () => {
   const setUserFrindsArr = Store((e) => e.setUserFrindsArr);
+  const userFriends = Store((e) => e.userFriends);
   const [friendsErr, setFriendsError] = useState(false);
 
   const [result, setResult] = useState([] as PostProp[]);
   const [error, setError] = useState<string | unknown>("");
   const [success, setSuccess] = useState<Boolean>();
 
+  const userId = localStorage.getItem("socialUserId");
   useEffect(() => {
     const fetchPosts = async () => {
       const { success, res, error } = await usePosts();
@@ -38,8 +41,6 @@ const Home = () => {
     };
     fetchFriends();
   }, []);
-
-  const userFriends = Store((e) => e.userFriends);
 
   const {
     register,
@@ -64,7 +65,7 @@ const Home = () => {
     console.log(formData);
     console.log(data);
 
-    const { res, error, success } = await useAddPost(formData);
+    const { res, success } = await useAddPost(formData);
     if (res?.data) {
       setResult(res.data.reverse());
       setAddPostErr(false);
@@ -144,6 +145,7 @@ const Home = () => {
                         ? true
                         : false
                     }
+                    isUserPost={userId === p.userId}
                   />
                 ))}
               </div>
@@ -152,7 +154,14 @@ const Home = () => {
             )}
           </div>
         </main>
-        <aside className="hidden lg:block md:col-span-1">3</aside>
+        <aside className="hidden lg:block md:col-span-1">
+          <div className=" bg-[#202020] flex flex-col gap-3  rounded-md p-4    md:w-full">
+            Friend List
+            {userFriends?.map((u) => (
+              <FriendListComp key={u._id} data={u} />
+            ))}
+          </div>
+        </aside>
       </div>
     </section>
   );

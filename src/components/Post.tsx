@@ -11,9 +11,10 @@ import Store from "../store/store";
 interface PostP {
   data: PostProp;
   isFriend: Boolean;
+  isUserPost: Boolean;
 }
 
-const Post = ({ data, isFriend }: PostP) => {
+const Post = ({ data, isFriend, isUserPost }: PostP) => {
   const setUserFrindsArr = Store((s) => s.setUserFrindsArr);
 
   return (
@@ -35,27 +36,29 @@ const Post = ({ data, isFriend }: PostP) => {
             <p className="text-sm text-white/60">{data.location}</p>
           </div>
         </div>
-        <div className="addFriend ">
-          {isFriend ? (
-            <AiOutlineUserDelete
-              size={23}
-              className={"cursor-pointer"}
-              onClick={async () => {
-                const { res } = await useAddFriend(data.userId);
-                setUserFrindsArr(res?.data);
-              }}
-            />
-          ) : (
-            <AiOutlineUserAdd
-              size={23}
-              className={"cursor-pointer"}
-              onClick={async () => {
-                const { res } = await useAddFriend(data.userId);
-                setUserFrindsArr(res?.data);
-              }}
-            />
-          )}
-        </div>
+        {!isUserPost && (
+          <div className="addFriend ">
+            {isFriend ? (
+              <AiOutlineUserDelete
+                size={23}
+                className={"cursor-pointer bg-red-400 rounded-xl"}
+                onClick={async () => {
+                  const { res } = await useAddFriend(data.userId);
+                  setUserFrindsArr(res?.data);
+                }}
+              />
+            ) : (
+              <AiOutlineUserAdd
+                size={23}
+                className={"cursor-pointer bg-blue-400 rounded-xl text-white"}
+                onClick={async () => {
+                  const { res } = await useAddFriend(data.userId);
+                  setUserFrindsArr(res?.data);
+                }}
+              />
+            )}
+          </div>
+        )}
       </div>
       <div className="two">
         <p className="text-sm text-white/80">{data.description}</p>

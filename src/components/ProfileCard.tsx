@@ -11,6 +11,7 @@ const ProfileCard = () => {
   const [result, setResult] = useState({} as User);
   const [error, setError] = useState<string | unknown>("");
   const [success, setSuccess] = useState<Boolean>();
+
   useEffect(() => {
     const f = async () => {
       const { error: err, res, success } = await useProfileCard();
