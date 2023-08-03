@@ -1,12 +1,21 @@
-import { AiFillHeart, AiOutlineUserDelete } from "react-icons/ai";
+import {
+  AiFillHeart,
+  AiOutlineUserAdd,
+  AiOutlineUserDelete,
+} from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
 import { PostProp } from "../hooks/usePosts";
+import useAddFriend from "../hooks/useAddFriend";
+import Store from "../store/store";
 
 interface PostP {
   data: PostProp;
+  isFriend: Boolean;
 }
 
-const Post = ({ data }: PostP) => {
+const Post = ({ data, isFriend }: PostP) => {
+  const setUserFrindsArr = Store((s) => s.setUserFrindsArr);
+
   return (
     <article
       id="post"
@@ -27,8 +36,25 @@ const Post = ({ data }: PostP) => {
           </div>
         </div>
         <div className="addFriend ">
-          <AiOutlineUserDelete size={23} />
-          {/* <AiOutlineUserAdd size={23} /> */}
+          {isFriend ? (
+            <AiOutlineUserDelete
+              size={23}
+              className={"cursor-pointer"}
+              onClick={async () => {
+                const { res } = await useAddFriend(data.userId);
+                setUserFrindsArr(res?.data);
+              }}
+            />
+          ) : (
+            <AiOutlineUserAdd
+              size={23}
+              className={"cursor-pointer"}
+              onClick={async () => {
+                const { res } = await useAddFriend(data.userId);
+                setUserFrindsArr(res?.data);
+              }}
+            />
+          )}
         </div>
       </div>
       <div className="two">

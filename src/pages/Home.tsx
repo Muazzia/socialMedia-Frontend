@@ -10,11 +10,17 @@ import Post from "../components/Post";
 import usePosts, { PostProp } from "../hooks/usePosts";
 import { useEffect, useState } from "react";
 import ProfileCard from "../components/ProfileCard";
+import Store from "../store/store";
+import useGetFriends from "../hooks/useGetFriends";
 
 const Home = () => {
+  const setUserFrindsArr = Store((e) => e.setUserFrindsArr);
+  const [friendsErr, setFriendsError] = useState(false);
+
   const [result, setResult] = useState([] as PostProp[]);
   const [error, setError] = useState<string | unknown>("");
   const [success, setSuccess] = useState<Boolean>();
+
   useEffect(() => {
     const fetchPosts = async () => {
       const { success, res, error } = await usePosts();
@@ -23,9 +29,19 @@ const Home = () => {
       if (error) setError(error.response?.data);
       setSuccess(success);
     };
-
     fetchPosts();
   }, []);
+
+  useEffect(() => {
+    const fetchFriends = async () => {
+      const { success, res } = await useGetFriends();
+      if (success) setUserFrindsArr(res?.data);
+      if (!success) setFriendsError(true);
+    };
+    fetchFriends();
+  }, []);
+
+  const userFriends = Store((e) => e.userFriends);
 
   if ("string" === typeof error && error) return error;
   return (
@@ -62,11 +78,21 @@ const Home = () => {
             </div>
           </div>
           <div className="h-[90vh] mt-4">
-            <div className="flex flex-col gap-4 ">
-              {result?.map((p, i) => (
-                <Post key={i} data={p} />
-              ))}
-            </div>
+            {!friendsErr ? (
+              <div className="flex flex-col gap-4 ">
+                {result?.map((p, i) => (
+                  <Post
+                    key={i}
+                    data={p}
+                    isFriend={
+                      userFriends.find((e) => e._id === p.userId) ? true : false
+                    }
+                  />
+                ))}
+              </div>
+            ) : (
+              <p>Error while fetching Friends</p>
+            )}
           </div>
         </main>
         <aside className="hidden lg:block md:col-span-1">3</aside>

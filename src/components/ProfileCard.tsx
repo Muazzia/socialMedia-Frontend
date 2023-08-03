@@ -3,6 +3,7 @@ import { AiFillLinkedin, AiOutlineUserDelete } from "react-icons/ai";
 import { FiMapPin, FiTwitter } from "react-icons/fi";
 import { PiBagSimpleBold } from "react-icons/pi";
 import useProfileCard, { User } from "../hooks/useProfileCard";
+import Store from "../store/store";
 
 const ProfileCard = () => {
   const [result, setResult] = useState({} as User);
@@ -12,7 +13,9 @@ const ProfileCard = () => {
     const f = async () => {
       const { error: err, res, success } = await useProfileCard();
 
-      if (res) setResult(res.data);
+      if (res) {
+        setResult(res.data);
+      }
       if (err) setError(err.response?.data);
       setSuccess(success);
     };
