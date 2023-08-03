@@ -19,16 +19,14 @@ const Home = () => {
 
   const [result, setResult] = useState([] as PostProp[]);
   const [error, setError] = useState<string | unknown>("");
-  const [success, setSuccess] = useState<Boolean>();
 
   const userId = localStorage.getItem("socialUserId");
   useEffect(() => {
     const fetchPosts = async () => {
-      const { success, res, error } = await usePosts();
+      const { res, error } = await usePosts();
 
       if (res) setResult(res.data.reverse());
       if (error) setError(error.response?.data);
-      setSuccess(success);
     };
     fetchPosts();
   }, []);
