@@ -131,6 +131,9 @@ const Home = () => {
                         : false
                     }
                     isUserPost={userId === p.userId}
+                    userId={userId || ""}
+                    setUpdated={setResult}
+                    arrPost={result}
                   />
                 ))}
               </div>

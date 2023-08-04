@@ -1,21 +1,45 @@
 import {
   AiFillHeart,
+  AiOutlineHeart,
   AiOutlineUserAdd,
   AiOutlineUserDelete,
 } from "react-icons/ai";
-import { BiCommentDetail } from "react-icons/bi";
-import { PostProp } from "../hooks/usePosts";
 import useAddFriend from "../hooks/useAddFriend";
+import useAddLike from "../hooks/useAddLike";
+import { PostProp } from "../hooks/usePosts";
 import Store from "../store/store";
 
 interface PostP {
   data: PostProp;
   isFriend: Boolean;
   isUserPost: Boolean;
+  userId: string;
+  setUpdated: React.Dispatch<React.SetStateAction<PostProp[] | undefined>>;
+  arrPost: PostProp[];
 }
 
-const Post = ({ data, isFriend, isUserPost }: PostP) => {
+const Post = ({
+  data,
+  isFriend,
+  isUserPost,
+  userId,
+  setUpdated,
+  arrPost,
+}: PostP) => {
   const setUserFrindsArr = Store((s) => s.setUserFrindsArr);
+  const { toggleLike } = useAddLike(data._id);
+
+  const handleLikeClick = async () => {
+    const updatedPost = await toggleLike();
+    if (updatedPost) {
+      setUpdated(
+        arrPost.map((a) => {
+          const val = a._id !== updatedPost._id ? a : updatedPost;
+          return val;
+        })
+      );
+    }
+  };
 
   return (
     <article
@@ -71,9 +95,23 @@ const Post = ({ data, isFriend, isUserPost }: PostP) => {
         />
       </div>
       <div className="four flex gap-4">
-        <AiFillHeart size={24} className={"cursor-pointer"} />
-        {/* <AiOutlineHeart /> */}
-        <BiCommentDetail size={24} className={"cursor-pointer"} />
+        {data.likes[userId] ? (
+          <AiFillHeart
+            size={24}
+            className={"cursor-pointer"}
+            onClick={() => {
+              handleLikeClick();
+            }}
+          />
+        ) : (
+          <AiOutlineHeart
+            size={24}
+            className={"cursor-pointer"}
+            onClick={() => {
+              handleLikeClick();
+            }}
+          />
+        )}
       </div>
     </article>
   );
