@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
 import api from "../services/apiClient";
+import { useEffect, useState } from "react";
 
 export type PostProp = {
   _id: string;
@@ -14,24 +15,31 @@ export type PostProp = {
   comments: string[];
 };
 
-const usePosts = async () => {
-  let res;
-  let error;
-  let success;
-  try {
-    const token = localStorage.getItem("authToken");
-    res = await api.get<PostProp[]>("/posts", {
-      headers: {
-        "x-auth-token": token,
-      },
-    });
-    success = true;
-  } catch (err) {
-    error = err as AxiosError;
-    success = false;
-  }
+const usePosts = () => {
+  const [res, setRes] = useState<PostProp[]>();
+  const [error, setError] = useState({} as AxiosError);
+  const [success, setSuccess] = useState<Boolean | null>(null);
 
-  return { res, error, success };
+  useEffect(() => {
+    const FetchingData = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+        const response = await api.get<PostProp[]>("/posts", {
+          headers: {
+            "x-auth-token": token,
+          },
+        });
+        setRes(response.data);
+        setSuccess(true);
+      } catch (err) {
+        setError(err as AxiosError);
+        setSuccess(false);
+      }
+    };
+
+    FetchingData();
+  }, []);
+  return { res, setRes, error, success };
 };
 
 export default usePosts;

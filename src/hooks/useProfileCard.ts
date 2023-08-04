@@ -21,6 +21,7 @@ const useProfileCard = async () => {
   try {
     const id = localStorage.getItem("socialUserId");
     const authToken = localStorage.getItem("authToken");
+
     res = await api.get<User>(`/users/${id}`, {
       headers: {
         "x-auth-token": authToken,

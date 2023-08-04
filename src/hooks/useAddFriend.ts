@@ -5,6 +5,7 @@ const useAddFriend = async (fId: string) => {
   let res;
   let error;
   let success;
+
   try {
     const id = localStorage.getItem("socialUserId");
     const authToken = localStorage.getItem("authToken");

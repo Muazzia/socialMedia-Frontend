@@ -1,35 +1,25 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlinePicture } from "react-icons/ai";
 import { Input } from "../../@/components/shad/ui/input";
+import FriendListComp from "../components/FriendListComp";
 import Post from "../components/Post";
 import ProfileCard from "../components/ProfileCard";
-import useGetFriends from "../hooks/useGetFriends";
-import usePosts, { PostProp } from "../hooks/usePosts";
-import Store from "../store/store";
-import { SubmitHandler, useForm } from "react-hook-form";
-import HomeSchemaForm, { schema } from "../validationModels/home";
-import { zodResolver } from "@hookform/resolvers/zod";
 import useAddPost from "../hooks/useAddPost";
-import FriendListComp from "../components/FriendListComp";
+import useGetFriends from "../hooks/useGetFriends";
+import usePosts from "../hooks/usePosts";
+import Store from "../store/store";
+import HomeSchemaForm, { schema } from "../validationModels/home";
 
 const Home = () => {
   const setUserFrindsArr = Store((e) => e.setUserFrindsArr);
   const userFriends = Store((e) => e.userFriends);
   const [friendsErr, setFriendsError] = useState(false);
 
-  const [result, setResult] = useState([] as PostProp[]);
-  const [error, setError] = useState<string | unknown>("");
-
   const userId = localStorage.getItem("socialUserId");
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const { res, error } = await usePosts();
 
-      if (res) setResult(res.data.reverse());
-      if (error) setError(error.response?.data);
-    };
-    fetchPosts();
-  }, []);
+  const { error, res: result, setRes: setResult } = usePosts();
 
   useEffect(() => {
     const fetchFriends = async () => {
@@ -59,9 +49,6 @@ const Home = () => {
     formData.append("picturePath", file);
     formData.append("description", data.description);
     formData.append("userId", userId || "");
-
-    console.log(formData);
-    console.log(data);
 
     const { res, success } = await useAddPost(formData);
     if (res?.data) {

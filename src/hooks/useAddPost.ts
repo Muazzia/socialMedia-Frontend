@@ -7,6 +7,7 @@ const useAddPost = async (formData: FormData) => {
   let success;
   try {
     const authToken = localStorage.getItem("authToken");
+
     res = await api.post("/posts", formData, {
       headers: {
         "Content-Type": "multipart/form-data",

@@ -18,8 +18,7 @@ const Login = () => {
   const [submitSuccess, setSubmitSuccess] = useState<Boolean>(false);
 
   const onSubmit: SubmitHandler<LoginFormSchemaType> = async (data) => {
-    console.log(data);
-    const { res, error, success } = await useLogin(data);
+    const { error, success } = await useLogin(data);
 
     setSubmitError(error?.response?.data);
     if (success) {

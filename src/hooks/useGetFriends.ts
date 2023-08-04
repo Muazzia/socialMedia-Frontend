@@ -8,6 +8,8 @@ const useAddFriend = async () => {
   try {
     const id = localStorage.getItem("socialUserId");
     const authToken = localStorage.getItem("authToken");
+    console.log(id);
+
     res = await api.get(`/users/${id}/friends`, {
       headers: {
         "x-auth-token": authToken,
