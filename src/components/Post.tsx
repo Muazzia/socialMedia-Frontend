@@ -57,7 +57,7 @@ const Post = ({
             />
           </div>
           <div className="flex flex-col">
-            <Link to={`/profile/${data._id}`} preventScrollReset={true}>
+            <Link to={`/profile/${data.userId}`} preventScrollReset={true}>
               <h2 className="text-md hover:underline">
                 {data.firstName + " " + data.lastName}
               </h2>

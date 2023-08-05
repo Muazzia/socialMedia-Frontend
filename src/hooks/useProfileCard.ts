@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
 import api from "../services/apiClient";
+import { useEffect, useState } from "react";
 
 export interface User {
   firstName: string;
@@ -14,25 +15,32 @@ export interface User {
   impressions: number;
 }
 
-const useProfileCard = async () => {
-  let res;
-  let error;
-  let success;
-  try {
-    const id = localStorage.getItem("socialUserId");
-    const authToken = localStorage.getItem("authToken");
+const useProfileCard = (id: string) => {
+  const [res, setRes] = useState<User>();
+  const [error, setError] = useState({} as AxiosError);
+  const [success, setSuccess] = useState<Boolean | null>(null);
 
-    res = await api.get<User>(`/users/${id}`, {
-      headers: {
-        "x-auth-token": authToken,
-      },
-    });
+  useEffect(() => {
+    const fetcingData = async () => {
+      try {
+        const authToken = localStorage.getItem("authToken");
 
-    success = true;
-  } catch (err: any) {
-    error = err as AxiosError;
-    success = false;
-  }
+        const response = await api.get<User>(`/users/${id}`, {
+          headers: {
+            "x-auth-token": authToken,
+          },
+        });
+        setRes(response.data);
+        setSuccess(true);
+      } catch (err: any) {
+        setError(err as AxiosError);
+        setSuccess(false);
+      }
+    };
+
+    fetcingData();
+  }, []);
+
   return { res, error, success };
 };
 

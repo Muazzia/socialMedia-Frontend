@@ -64,7 +64,7 @@ const Home = () => {
     <section id="home">
       <div className="grid grid-cols-1 md:gap-5 md:grid-cols-3 lg:grid-cols-4 md:mt-10">
         <aside className="hidden md:block md:col-span-1 ">
-          <ProfileCard />
+          <ProfileCard id={userId || ""} />
         </aside>
         <main className="mt-5 mx-0 sm:mx-auto md:mx-0 md:mt-0 md:col-span-2 ">
           <div className="input flex flex-col p-4  bg-[#202020] rounded-md  sm:w-[550px] md:w-full">
