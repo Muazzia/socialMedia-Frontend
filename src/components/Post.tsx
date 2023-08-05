@@ -8,6 +8,7 @@ import useAddFriend from "../hooks/useAddFriend";
 import useAddLike from "../hooks/useAddLike";
 import { PostProp } from "../hooks/usePosts";
 import Store from "../store/store";
+import { Link } from "react-router-dom";
 
 interface PostP {
   data: PostProp;
@@ -56,7 +57,11 @@ const Post = ({
             />
           </div>
           <div className="flex flex-col">
-            <h2 className="text-md">{data.firstName + " " + data.lastName}</h2>
+            <Link to={`/profile/${data._id}`} preventScrollReset={true}>
+              <h2 className="text-md hover:underline">
+                {data.firstName + " " + data.lastName}
+              </h2>
+            </Link>
             <p className="text-sm text-white/60">{data.location}</p>
           </div>
         </div>
