@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
-import api from "../services/apiClient";
 import { useEffect, useState } from "react";
+import api from "../services/apiClient";
 
 export type PostProp = {
   _id: string;

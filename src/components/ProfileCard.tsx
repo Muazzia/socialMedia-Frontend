@@ -10,18 +10,16 @@ const ProfileCard = () => {
 
   const [result, setResult] = useState({} as User);
   const [error, setError] = useState<string | unknown>("");
-  const [success, setSuccess] = useState<Boolean>();
 
   useEffect(() => {
     const f = async () => {
-      const { error: err, res, success } = await useProfileCard();
+      const { error: err, res } = await useProfileCard();
 
       if (res) {
         setResult(res.data);
         setUserName(res.data.firstName + "" + res.data.lastName);
       }
       if (err) setError(err.response?.data);
-      setSuccess(success);
     };
 
     f();
@@ -29,7 +27,7 @@ const ProfileCard = () => {
 
   if ("string" === typeof error && error) return error;
   return (
-    <div className=" bg-[#202020] flex flex-col gap-3  rounded-md p-4 sm:w-[550px] md:w-full">
+    <div className=" bg-[#202020] flex flex-col gap-3  rounded-md p-4 sm:w-[550px] md:w-full ">
       <div className="one flex items-center justify-between">
         <div className="image flex items-center gap-2">
           <div className=" rounded-full w-9 bg-cover h-9 overflow-hidden ">

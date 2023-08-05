@@ -63,7 +63,7 @@ const Home = () => {
   return (
     <section id="home">
       <div className="grid grid-cols-1 md:gap-5 md:grid-cols-3 lg:grid-cols-4 md:mt-10">
-        <aside className="hidden md:block md:col-span-1">
+        <aside className="hidden md:block md:col-span-1 ">
           <ProfileCard />
         </aside>
         <main className="mt-5 mx-0 sm:mx-auto md:mx-0 md:mt-0 md:col-span-2 ">
