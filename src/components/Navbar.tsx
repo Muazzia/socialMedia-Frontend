@@ -1,22 +1,12 @@
-import { GiHamburgerMenu } from "react-icons/gi";
-import { AiOutlineClose } from "react-icons/ai";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../@/components/shad/ui/select";
-import { Input } from "../../@/components/shad/ui/input";
 import { useState } from "react";
-import Store from "../store/store";
+import { AiOutlineClose } from "react-icons/ai";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
+import { Input } from "../../@/components/shad/ui/input";
 
 const Navbar = () => {
-  const arr = ["light", "dark", "brown"];
   const [showMenu, setShowMenu] = useState(false);
 
-  const userName = Store((s) => s.userName);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -52,47 +42,13 @@ const Navbar = () => {
               <li>Notification </li>
               <li>Bell</li>
               <li>Help </li>
-              {/* <li>
-                <Select>
-                  <SelectTrigger className="min-w-[120px] border-none focus-visible:outline-white bg-gray-500 rounded-lg px-2 py-2">
-                    <SelectValue placeholder="Options" />
-                  </SelectTrigger>
-                  <SelectContent className=" min-h- mt-2 px-1 rounded-lg  cursor-pointer text-white text-md bg-gray-500 ">
-                    <SelectGroup>
-                      {arr.map((a, i) => (
-                        <SelectItem
-                          key={i}
-                          value={a}
-                          className="mt-1  px-1 w-full  border-none focus-visible:outline-none hover:focus-visible:outline-white hover:border-none "
-                        >
-                          {a}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </li> */}
-              <li>
-                <Select
-                  onValueChange={(e) => {
-                    console.log(e);
-                    if (e === "Logout") {
-                      handleLogout();
-                    }
-                  }}
-                >
-                  <SelectTrigger className="w-[110px] h-[40px] border border-white focus-visible:outline-white focus-visible:outline-1">
-                    <SelectValue placeholder={userName} />
-                  </SelectTrigger>
-                  <SelectContent className="cursor-pointer bg-gray-500 w-[150px] mt-2 px-[8px] text-white  py-2">
-                    <SelectItem
-                      value={"Logout"}
-                      className="px-2 py-1 hover:bg-gray-300 rounded-md border-none focus-visible:outline-none hover:border-none hover:focus-visible:outline-none"
-                    >
-                      Logout
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
+              <li
+                className="text-white cursor-pointer"
+                onClick={() => {
+                  handleLogout();
+                }}
+              >
+                Logout
               </li>
             </ul>
           </div>
@@ -116,28 +72,14 @@ const Navbar = () => {
           <li>Notification </li>
           <li>Bell</li>
           <li>Help </li>
-          <li>
-            <Select
-              onValueChange={(e) => {
-                console.log(e);
-                if (e === "Logout") {
-                  handleLogout();
-                  setShowMenu(false);
-                }
-              }}
-            >
-              <SelectTrigger className="w-[110px] h-[40px] border border-white focus-visible:outline-white focus-visible:outline-1">
-                <SelectValue placeholder={userName || "UserName"} />
-              </SelectTrigger>
-              <SelectContent className="cursor-pointer z-10 bg-gray-500 w-[150px] mt-2 px-[8px] text-white  py-2">
-                <SelectItem
-                  value={"Logout"}
-                  className="px-2 py-1 hover:bg-gray-300 rounded-md border-none focus-visible:outline-none hover:border-none hover:focus-visible:outline-none"
-                >
-                  Logout
-                </SelectItem>
-              </SelectContent>
-            </Select>
+          <li
+            className="text-white cursor-pointer"
+            onClick={() => {
+              handleLogout();
+              setShowMenu(!showMenu);
+            }}
+          >
+            Logout
           </li>
         </ul>
       </div>

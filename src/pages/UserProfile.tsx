@@ -15,7 +15,7 @@ const UserProfile = () => {
   return (
     <section
       id="UserProfile"
-      className="grid grid-cols-1 md:grid-cols-3 mx-auto gap-5"
+      className="grid grid-cols-1 md:grid-cols-3 mx-auto gap-5 mt-10"
     >
       <div className="col-span-1">
         <ProfileCard id={param.id || ""} />
