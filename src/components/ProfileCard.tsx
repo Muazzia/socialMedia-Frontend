@@ -1,4 +1,4 @@
-import { AiFillLinkedin, AiOutlineUserDelete } from "react-icons/ai";
+import { AiFillLinkedin } from "react-icons/ai";
 import { FiMapPin, FiTwitter } from "react-icons/fi";
 import { PiBagSimpleBold } from "react-icons/pi";
 import useProfileCard from "../hooks/useProfileCard";
@@ -28,10 +28,6 @@ const ProfileCard = ({ id }: Props) => {
             </h2>
             <p className="text-sm text-white/60">{result?.location}</p>
           </div>
-        </div>
-        <div className="addFriend ">
-          <AiOutlineUserDelete size={23} />
-          {/* <AiOutlineUserAdd /> */}
         </div>
       </div>
       <div className="br h-[1px] w-full bg-white/50" />

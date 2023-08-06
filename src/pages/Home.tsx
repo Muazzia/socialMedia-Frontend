@@ -77,7 +77,7 @@ const Home = () => {
                 />
                 <div className="flex flex-col w-full">
                   <Input
-                    className="rounded-full text-black w-full"
+                    className="rounded-full text-black w-full h-[35px]"
                     {...register("description")}
                   />
                   {errors.description && (
@@ -86,7 +86,6 @@ const Home = () => {
                     </p>
                   )}
                 </div>
-                {/* <input type="text" className="w-full rounded-xl" /> */}
               </div>
               <div className="mid h-[1px] w-full bg-slate-400 mb-2" />
               <div className="bottom flex items-end justify-between">

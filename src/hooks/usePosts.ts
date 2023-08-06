@@ -29,7 +29,7 @@ const usePosts = () => {
             "x-auth-token": token,
           },
         });
-        setRes(response.data);
+        setRes(response.data.reverse());
         setSuccess(true);
       } catch (err) {
         setError(err as AxiosError);

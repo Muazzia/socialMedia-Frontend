@@ -8,19 +8,18 @@ const UserProfile = () => {
   const param = useParams();
   const { res: result, setRes: setResult } = useUserProfile(param.id || "");
   const userId = localStorage.getItem("socialUserId");
-  console.log(result);
 
   const userFriends = Store((s) => s.userFriends);
 
   return (
     <section
       id="UserProfile"
-      className="grid grid-cols-1 md:grid-cols-3 mx-auto gap-5 mt-10"
+      className="grid grid-cols-1 md:grid-cols-3 sm:mx-auto lg:mx-[100px] gap-5 mt-10"
     >
-      <div className="col-span-1">
+      <div className="col-span-1 sm:max-md:mx-auto">
         <ProfileCard id={param.id || ""} />
       </div>
-      <div className="col-span-2 flex flex-col gap-4">
+      <div className="md:col-span-2 flex flex-col gap-4 sm:max-md:mx-auto">
         {result?.map((p, i) => (
           <Post
             key={i}
