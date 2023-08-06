@@ -16,6 +16,8 @@ type S = {
   setUserId: (id: string) => void;
   userFriends: UserF[];
   setUserFrindsArr: (arr: UserF[]) => void;
+  searchStr: string;
+  setSearchStr: (search: string) => void;
 };
 
 const Store = create<S>((set) => ({
@@ -25,6 +27,8 @@ const Store = create<S>((set) => ({
   setUserId: (id: string) => set(() => ({ userId: id })),
   userFriends: [],
   setUserFrindsArr: (arr: UserF[]) => set(() => ({ userFriends: arr })),
+  searchStr: "",
+  setSearchStr: (search: string) => set(() => ({ searchStr: search })),
 }));
 
 export default Store;

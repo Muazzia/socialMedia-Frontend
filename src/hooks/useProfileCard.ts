@@ -3,6 +3,7 @@ import api from "../services/apiClient";
 import { useEffect, useState } from "react";
 
 export interface User {
+  _id: string;
   firstName: string;
   lastName?: string;
   email: string;

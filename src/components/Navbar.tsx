@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../../@/components/shad/ui/input";
+import Store from "../store/store";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   const navigate = useNavigate();
 
@@ -14,15 +16,30 @@ const Navbar = () => {
     navigate("/");
   };
 
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSearchStr(searchValue);
+  };
+  const setSearchStr = Store((s) => s.setSearchStr);
+
+  const handleInputChange = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(value);
+    if (value.length === 0) setSearchStr(value);
+  };
+
   return (
     <nav className="bg-black border-b border-b-black relative">
       <div className="mx-4 lg:max-w-[1015px] lg:mx-auto flex p-3 justify-between items-center">
         <div className="left text-xl text-white flex justify-between items-center gap-2">
           <div className="logo">Social Media</div>
           <div className="search hidden md:block">
-            <form onSubmit={() => {}} className="flex">
+            <form onSubmit={onSubmit} className="flex">
               <Input
                 placeholder="Search"
+                value={searchValue} // Bind the input value to the state
+                onChange={handleInputChange}
                 className="w-[180px] pl-2 py-1 rounded-md  bg-gray-300 text-gray-700 border-none focus-visible:outline-white"
               />
             </form>
