@@ -19,6 +19,7 @@ const Navbar = () => {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSearchStr(searchValue);
+    navigate(`../search/${searchValue}`);
   };
   const setSearchStr = Store((s) => s.setSearchStr);
 

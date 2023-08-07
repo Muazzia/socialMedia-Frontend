@@ -27,7 +27,7 @@ const useUserSearch = (userName: string) => {
       }
     };
     if (userName.length !== 0) fetch();
-  }, []);
+  }, [userName]);
 
   return { res, err, loading, setRes };
 };

@@ -5,6 +5,7 @@ import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
 import Register from "./Register";
 import UserProfile from "./UserProfile";
+import Search from "./Search";
 
 const routes = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const routes = createBrowserRouter([
       {
         path: "profile/:id",
         element: <ProtectedRoute children={<UserProfile />} />,
+      },
+      {
+        path: "search/:searchStr",
+        element: <ProtectedRoute children={<Search />} />,
       },
     ],
   },
