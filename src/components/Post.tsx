@@ -4,11 +4,20 @@ import {
   AiOutlineUserAdd,
   AiOutlineUserDelete,
 } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../@/components/shad/ui/dropdown-menu";
 import useAddFriend from "../hooks/useAddFriend";
 import useAddLike from "../hooks/useAddLike";
 import { PostProp } from "../hooks/usePosts";
 import Store from "../store/store";
-import { Link } from "react-router-dom";
+
+import { MdDeleteForever } from "react-icons/md";
+import useRemovePost from "../hooks/useRemovePost";
 
 interface PostP {
   data: PostProp;
@@ -39,6 +48,17 @@ const Post = ({
           return val;
         })
       );
+    }
+  };
+
+  const { deletePost } = useRemovePost();
+
+  const handleDelete = async () => {
+    try {
+      const res = await deletePost(data._id);
+      setUpdated(arrPost.filter((a) => a._id !== res?._id));
+    } catch (error) {
+      console.error("Error deleting post:", error);
     }
   };
 
@@ -91,6 +111,28 @@ const Post = ({
               />
             )}
           </div>
+        )}
+        {isUserPost && (
+          <>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex focus-visible:outline-none">
+                <div className="font-xl cursor-pointer flex gap-[3px] h-3 ">
+                  <div className="h-1 w-1 bg-white rounded-full" />
+                  <div className="h-1 w-1 bg-white rounded-full" />
+                  <div className="h-1 w-1 bg-white rounded-full" />
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="text-black px-[3px] w-[150px] py-[3px]">
+                <DropdownMenuItem
+                  onClick={handleDelete}
+                  className="px-2 flex items-bottom  justify-between cursor-pointer py-1 rounded-md focus-visible:outline-none border-none hover:bg-gray-400"
+                >
+                  Delete
+                  <MdDeleteForever color={"red"} />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </>
         )}
       </div>
       <div className="two">
