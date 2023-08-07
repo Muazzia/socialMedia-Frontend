@@ -50,11 +50,15 @@ const Post = ({
       <div className="one flex items-center justify-between">
         <div className="image flex items-center gap-2">
           <div className="rounded-full w-9 h-9 object-cover overflow-hidden ">
-            <img
-              src={`http://localhost:3000/${data.userPicturePath}`}
-              alt="profilePic"
-              className="w-full h-full "
-            />
+            {data.userPicturePath ? (
+              <img
+                src={`http://localhost:3000/${data.userPicturePath}`}
+                alt="profilePic"
+                className="w-full h-full "
+              />
+            ) : (
+              <img src="" alt="profilePic" className="w-full h-full " />
+            )}
           </div>
           <div className="flex flex-col">
             <Link to={`/profile/${data.userId}`} preventScrollReset={true}>

@@ -63,6 +63,7 @@ const Home = () => {
   if ("string" === typeof error && error) return error;
 
   const searchStr = Store((s) => s.searchStr);
+  const userImgPath = Store((s) => s.userImgPath);
   return (
     <section id="home">
       {searchStr ? (
@@ -76,11 +77,19 @@ const Home = () => {
             <div className="input flex flex-col p-4  bg-[#202020] rounded-md  sm:w-[550px] md:w-full">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="top flex justify-between gap-5 mb-6">
-                  <img
-                    src={`http://localhost:3000/download.png`}
-                    alt="profileImage"
-                    className="w-9 bg-cover rounded-full h-9"
-                  />
+                  {userImgPath ? (
+                    <img
+                      src={`http://localhost:3000/${userImgPath}`}
+                      alt="profileImage"
+                      className="w-9 bg-cover rounded-full h-9"
+                    />
+                  ) : (
+                    <img
+                      src=""
+                      alt="profileImage"
+                      className="w-9 bg-cover rounded-full h-9"
+                    />
+                  )}
                   <div className="flex flex-col w-full">
                     <Input
                       className="rounded-full text-black w-full h-[35px]"

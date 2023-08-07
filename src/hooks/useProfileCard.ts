@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import api from "../services/apiClient";
 import { useEffect, useState } from "react";
+import Store from "../store/store";
 
 export interface User {
   _id: string;
@@ -20,11 +21,13 @@ const useProfileCard = (id: string) => {
   const [res, setRes] = useState<User>();
   const [error, setError] = useState({} as AxiosError);
   const [success, setSuccess] = useState<Boolean | null>(null);
+  const setUserImgPath = Store((s) => s.setUserImgPath);
 
   useEffect(() => {
     const fetcingData = async () => {
       try {
         const authToken = localStorage.getItem("authToken");
+        const userId = localStorage.getItem("socialUserId");
 
         const response = await api.get<User>(`/users/${id}`, {
           headers: {
@@ -32,6 +35,7 @@ const useProfileCard = (id: string) => {
           },
         });
         setRes(response.data);
+        if (userId === id) setUserImgPath(response.data.picturePath || "");
         setSuccess(true);
       } catch (err: any) {
         setError(err as AxiosError);
