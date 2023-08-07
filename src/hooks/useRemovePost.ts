@@ -12,7 +12,7 @@ const useRemovePost = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem("authToken");
-      const response = await api.delete<PostProp>(`/posts/${id}/1`, {
+      const response = await api.delete<PostProp>(`/posts/${id}`, {
         headers: {
           "x-auth-token": token,
         },
