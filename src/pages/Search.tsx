@@ -1,4 +1,4 @@
-import User from "../components/UserCard";
+import UserCard from "../components/UserCard";
 import useUserSearch from "../hooks/useUserSearch";
 import Store from "../store/store";
 
@@ -19,7 +19,7 @@ const Search = () => {
       className="w-full lg:w-1/2 mx-auto mt-5 flex flex-col gap-5 h-full"
     >
       {res?.map((u) => (
-        <User
+        <UserCard
           key={u._id}
           data={u}
           isUser={userId === u._id}

@@ -12,11 +12,13 @@ export type UserF = {
 type S = {
   userId: string;
   userName: string;
+  userImgPath: string;
+  userFriends: UserF[];
+  searchStr: string;
+  setUserImgPath: (img: string) => void;
   setUserName: (name: string) => void;
   setUserId: (id: string) => void;
-  userFriends: UserF[];
   setUserFrindsArr: (arr: UserF[]) => void;
-  searchStr: string;
   setSearchStr: (search: string) => void;
 };
 
@@ -29,6 +31,8 @@ const Store = create<S>((set) => ({
   setUserFrindsArr: (arr: UserF[]) => set(() => ({ userFriends: arr })),
   searchStr: "",
   setSearchStr: (search: string) => set(() => ({ searchStr: search })),
+  userImgPath: "",
+  setUserImgPath: (img: string) => set(() => ({ userImgPath: img })),
 }));
 
 export default Store;

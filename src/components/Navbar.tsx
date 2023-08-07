@@ -40,7 +40,7 @@ const Navbar = () => {
                 placeholder="Search"
                 value={searchValue} // Bind the input value to the state
                 onChange={handleInputChange}
-                className="w-[180px] pl-2 py-1 rounded-md  bg-gray-300 text-gray-700 border-none focus-visible:outline-white"
+                className="w-[180px] h-10 pl-2 py-1 rounded-md  bg-gray-300 text-gray-700 border-none focus-visible:outline-white"
               />
             </form>
           </div>
