@@ -1,14 +1,16 @@
+import { useParams } from "react-router-dom";
 import UserCard from "../components/UserCard";
 import useUserSearch from "../hooks/useUserSearch";
 import Store from "../store/store";
 
 const Search = () => {
-  const searchStr = Store((s) => s.searchStr);
+  const param = useParams();
+  const searchStr = param.searchStr;
   const userFriends = Store((s) => s.userFriends);
 
   const userId = localStorage.getItem("socialUserId");
 
-  const { res, err, loading } = useUserSearch(searchStr);
+  const { res, err, loading } = useUserSearch(searchStr || "");
   if (loading) return <p>...Loading</p>;
   if (err) return <p>{err.message}</p>;
 

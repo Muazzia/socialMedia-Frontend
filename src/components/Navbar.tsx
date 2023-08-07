@@ -1,13 +1,23 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../../@/components/shad/ui/input";
-import Store from "../store/store";
+import { SubmitHandler, useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  search: z
+    .string()
+    .min(1, "search str is required")
+    .max(255, "Max limit is 255 ch"),
+});
+
+type SearchSchema = z.infer<typeof schema>;
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
 
   const navigate = useNavigate();
 
@@ -16,31 +26,25 @@ const Navbar = () => {
     navigate("/");
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSearchStr(searchValue);
-    navigate(`../search/${searchValue}`);
-  };
-  const setSearchStr = Store((s) => s.setSearchStr);
+  const { register, handleSubmit } = useForm<SearchSchema>({
+    resolver: zodResolver(schema),
+  });
 
-  const handleInputChange = ({
-    target: { value },
-  }: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(value);
-    if (value.length === 0) setSearchStr(value);
+  const onSubmit: SubmitHandler<SearchSchema> = async ({ search }) => {
+    navigate(`../search/${search}`);
   };
-
   return (
     <nav className="bg-black border-b border-b-black relative">
       <div className="mx-4 lg:max-w-[1015px] lg:mx-auto flex p-3 justify-between items-center">
         <div className="left text-xl text-white flex justify-between items-center gap-2">
-          <div className="logo">Social Media</div>
+          <Link to={"/home"} className="logo cursor-pointer">
+            Social Media
+          </Link>
           <div className="search hidden md:block">
-            <form onSubmit={onSubmit} className="flex">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex">
               <Input
                 placeholder="Search"
-                value={searchValue} // Bind the input value to the state
-                onChange={handleInputChange}
+                {...register("search")}
                 className="w-[180px] h-10 pl-2 py-1 rounded-md  bg-gray-300 text-gray-700 border-none focus-visible:outline-white"
               />
             </form>
