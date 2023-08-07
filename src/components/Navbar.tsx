@@ -26,11 +26,12 @@ const Navbar = () => {
     navigate("/");
   };
 
-  const { register, handleSubmit } = useForm<SearchSchema>({
+  const { register, handleSubmit, reset } = useForm<SearchSchema>({
     resolver: zodResolver(schema),
   });
 
   const onSubmit: SubmitHandler<SearchSchema> = async ({ search }) => {
+    reset();
     navigate(`../search/${search}`);
   };
   return (

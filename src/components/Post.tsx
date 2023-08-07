@@ -103,7 +103,7 @@ const Post = ({
           alt="post Img"
         />
       </div>
-      <div className="four flex gap-4">
+      <div className="four flex items-center">
         {data.likes[userId] ? (
           <AiFillHeart
             size={24}
@@ -121,6 +121,7 @@ const Post = ({
             }}
           />
         )}
+        <p className="ml-1 text-white/40">{Object.keys(data.likes).length}</p>
       </div>
     </article>
   );
