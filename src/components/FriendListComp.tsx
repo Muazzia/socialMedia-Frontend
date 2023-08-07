@@ -12,11 +12,15 @@ const FriendListComp = ({ data }: Props) => {
     <div className="one flex items-center justify-between">
       <div className="image flex items-center gap-2">
         <div className=" rounded-full w-9 bg-cover h-9 overflow-hidden ">
-          <img
-            src={`http://localhost:3000/${data.picturePath}`}
-            alt="profilePic"
-            className="h-full w-full"
-          />
+          {data.picturePath ? (
+            <img
+              src={`http://localhost:3000/${data.picturePath}`}
+              alt="profilePic"
+              className="h-full w-full"
+            />
+          ) : (
+            <img src="" alt="profilePic" className="h-full w-full" />
+          )}
         </div>
         <div className="flex flex-col">
           <h2 className="text-md">{data.firstName + "" + data.lastName}</h2>

@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { Input } from "../../@/components/shad/ui/input";
 import useRegister from "../hooks/useRegister";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import RegisterFormSchemaType, { schema } from "../validationModels/register";
 
@@ -52,7 +52,11 @@ const Register = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <div>
-            <Input placeholder="FirstName" {...register("firstName")} />
+            <Input
+              placeholder="FirstName"
+              {...register("firstName")}
+              className="text-black"
+            />
             {errors.firstName && (
               <span className="text-red-800 block ml-2">
                 {errors.firstName?.message}
@@ -61,7 +65,11 @@ const Register = () => {
           </div>
 
           <div>
-            <Input placeholder="LastName" {...register("lastName")} />
+            <Input
+              placeholder="LastName"
+              {...register("lastName")}
+              className="text-black"
+            />
             {errors.lastName && (
               <span className="text-red-800 block ml-2">
                 {errors.lastName?.message}
@@ -69,7 +77,11 @@ const Register = () => {
             )}
           </div>
           <div>
-            <Input placeholder="Email" {...register("email")} />
+            <Input
+              placeholder="Email"
+              {...register("email")}
+              className="text-black"
+            />
             {errors.email && (
               <span className="text-red-800 block ml-2">
                 {errors.email?.message}
@@ -77,7 +89,11 @@ const Register = () => {
             )}
           </div>
           <div>
-            <Input placeholder="Password" {...register("password")} />
+            <Input
+              placeholder="Password"
+              {...register("password")}
+              className="text-black"
+            />
             {errors.password && (
               <span className="text-red-800 block ml-2">
                 {errors.password?.message}
@@ -88,6 +104,7 @@ const Register = () => {
             <Input
               placeholder="ConfirmPassword"
               {...register("confirmPassword")}
+              className="text-black"
             />
             {errors.confirmPassword && (
               <span className="text-red-800 block ml-2">
@@ -96,7 +113,11 @@ const Register = () => {
             )}
           </div>
           <div>
-            <Input type="file" {...register("picturePath")} />
+            <Input
+              type="file"
+              {...register("picturePath")}
+              className="text-black/50"
+            />
             {errors.picturePath && (
               <span className="text-red-800 block ml-2">
                 {errors.picturePath.message?.toString()}
@@ -104,14 +125,14 @@ const Register = () => {
             )}
           </div>
           {typeof submitError === "string" && submitError && (
-            <p className="text-red-800 ml-2 block">{submitError}</p>
+            <p className="text-white/50 ml-2 block">{submitError}</p>
           )}
           {submitSuccess && (
-            <p className=" text-green-700 ml-2">Registered Successfully</p>
+            <p className=" text-white/50 ml-2">Registered Successfully</p>
           )}
           <div className="flex justify-end">
             <button
-              className="bg-black text-white p-2 rounded-md"
+              className="bg-black border border-white text-white px-2 py-1 rounded-md"
               // disabled={isSubmitting}
             >
               Submit

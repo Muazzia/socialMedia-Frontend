@@ -7,6 +7,7 @@ import Register from "./Register";
 import UserProfile from "./UserProfile";
 import Search from "./Search";
 import Error from "./Error";
+import LogoutPrevent from "./LogoutPrevent";
 
 const routes = createBrowserRouter([
   {
@@ -14,8 +15,8 @@ const routes = createBrowserRouter([
     element: <Layout />,
     errorElement: <Error />,
     children: [
-      { index: true, element: <Login /> },
-      { path: "register", element: <Register /> },
+      { index: true, element: <LogoutPrevent children={<Login />} /> },
+      { path: "register", element: <LogoutPrevent children={<Register />} /> },
       {
         path: "home",
         element: <ProtectedRoute children={<Home />} />,

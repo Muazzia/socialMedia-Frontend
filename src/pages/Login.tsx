@@ -70,13 +70,21 @@ const Login = () => {
           {submitSuccess && (
             <p className=" text-green-700 ml-2">LoggedIn Successfully</p>
           )}
-          <div className="flex justify-end">
+          <div className="flex justify-end gap-2">
             <button
               type="submit"
-              className="bg-gray-600 border border-white text-white p-2 rounded-md"
               disabled={isSubmitting}
+              className="bg-gray-600 border border-white text-white px-2 py-1 rounded-md"
             >
               Submit
+            </button>
+            <button
+              onClick={() => {
+                navigate("/register");
+              }}
+              className="bg-white border border-white hover:bg-black/60 hover:text-white text-black font-medium px-2 py-1 rounded-md"
+            >
+              Register
             </button>
           </div>
         </form>

@@ -11,8 +11,6 @@ const useRegister = async (formData: FormData) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    const authToken = res.headers["x-auth-token"];
-    localStorage.setItem("authToken", authToken);
     success = true;
   } catch (err: any) {
     error = err as AxiosError;
