@@ -26,7 +26,6 @@ const Home = () => {
   }, []);
 
   if ("string" === typeof error && error) return error;
-
   return (
     <section id="home">
       <div className="grid grid-cols-1 md:gap-5 md:grid-cols-3 lg:grid-cols-4 md:mt-10">
