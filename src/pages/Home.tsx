@@ -1,29 +1,19 @@
-import { useEffect, useState } from "react";
+import AddPost from "../components/AddPost";
 import FriendListComp from "../components/FriendListComp";
 import Post from "../components/Post";
 import ProfileCard from "../components/ProfileCard";
 import useGetFriends from "../hooks/useGetFriends";
 import usePosts from "../hooks/usePosts";
 import Store from "../store/store";
-import AddPost from "../components/AddPost";
 
 const Home = () => {
-  const setUserFrindsArr = Store((e) => e.setUserFrindsArr);
   const userFriends = Store((e) => e.userFriends);
-  const [friendsErr, setFriendsError] = useState(false);
 
   const userId = localStorage.getItem("socialUserId");
 
   const { error, res: result, setRes: setResult } = usePosts();
 
-  useEffect(() => {
-    const fetchFriends = async () => {
-      const { success, res } = await useGetFriends();
-      if (success) setUserFrindsArr(res?.data);
-      if (!success) setFriendsError(true);
-    };
-    fetchFriends();
-  }, []);
+  const { success: friendsErr } = useGetFriends();
 
   if ("string" === typeof error && error) return error;
   return (
@@ -35,7 +25,7 @@ const Home = () => {
         <main className="mt-5 mx-0 sm:mx-auto md:mx-0 md:mt-0 md:col-span-2 ">
           <AddPost setResult={setResult} />
           <div className="mt-4">
-            {!friendsErr ? (
+            {!friendsErr === false ? (
               <div className="flex flex-col gap-4 ">
                 {result?.map((p, i) => (
                   <Post
@@ -53,8 +43,10 @@ const Home = () => {
                   />
                 ))}
               </div>
-            ) : (
+            ) : friendsErr === false ? (
               <p>Error while fetching Friends</p>
+            ) : (
+              <p>...Loading</p>
             )}
           </div>
         </main>
