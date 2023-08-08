@@ -12,6 +12,12 @@ interface Props {
 
 const UserCard = ({ data, isFriend, isUser }: Props) => {
   const setUserFrindsArr = Store((s) => s.setUserFrindsArr);
+  const { toggleFriend } = useAddFriend();
+
+  const handleClick = async (id: string) => {
+    const response = await toggleFriend(id);
+    if (response) setUserFrindsArr(response);
+  };
   return (
     <div className="flex flex-col justify-center gap-5 border border-white/40 px-3 py-3 rounded-md">
       <div className="top flex gap-5 items-center">
@@ -41,10 +47,7 @@ const UserCard = ({ data, isFriend, isUser }: Props) => {
                   <AiOutlineUserDelete
                     size={23}
                     className={"cursor-pointer bg-red-400 rounded-xl"}
-                    onClick={async () => {
-                      const { res } = await useAddFriend(data._id);
-                      setUserFrindsArr(res?.data);
-                    }}
+                    onClick={() => handleClick(data._id)}
                   />
                 ) : (
                   <AiOutlineUserAdd
@@ -52,10 +55,7 @@ const UserCard = ({ data, isFriend, isUser }: Props) => {
                     className={
                       "cursor-pointer bg-blue-400 rounded-xl text-white"
                     }
-                    onClick={async () => {
-                      const { res } = await useAddFriend(data._id);
-                      setUserFrindsArr(res?.data);
-                    }}
+                    onClick={() => handleClick(data._id)}
                   />
                 )}
               </div>
