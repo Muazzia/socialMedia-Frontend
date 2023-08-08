@@ -297,7 +297,18 @@ const Post = ({
                 </button>
               )}
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowUpdate(false);
+                  setSelectedFile(false);
+                  setContainsImage(false);
+                }}
+                className="bg-white px-1 py-1 rounded-md text-black hover:bg-black hover:text-white"
+              >
+                Cancel
+              </button>
               <button
                 type="submit"
                 className="bg-blue-500 px-1 py-1 rounded-md"
