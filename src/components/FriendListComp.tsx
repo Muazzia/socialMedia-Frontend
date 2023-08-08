@@ -37,7 +37,7 @@ const FriendListComp = ({ data }: Props) => {
         <AiOutlineUserDelete
           size={23}
           className={"cursor-pointer bg-red-400 rounded-xl"}
-          onClick={handleClick}
+          onClick={() => handleClick(data._id)}
         />
       </div>
     </div>
