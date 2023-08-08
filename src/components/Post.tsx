@@ -83,7 +83,7 @@ const Post = ({
                 }}
               />
             )}
-            <p className="ml-1 text-white/40">
+            <p className="ml-1 text-white/40 select-none">
               {Object.keys(data.likes).length}
             </p>
           </div>
