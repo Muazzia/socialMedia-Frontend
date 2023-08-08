@@ -25,6 +25,8 @@ const AddPost = ({ setResult }: Props) => {
   const userImgPath = Store((s) => s.userImgPath);
   const [addPostErr, setAddPostErr] = useState(false);
 
+  const { addPost, success } = useAddPost();
+
   const onSubmit: SubmitHandler<HomeSchemaForm> = async (data) => {
     const file = data.picturePath[0];
     const userId = localStorage.getItem("socialUserId");
@@ -34,9 +36,9 @@ const AddPost = ({ setResult }: Props) => {
     formData.append("description", data.description);
     formData.append("userId", userId || "");
 
-    const { res, success } = await useAddPost(formData);
-    if (res?.data) {
-      setResult(res.data.reverse());
+    const res = await addPost(formData);
+    if (res) {
+      setResult(res.reverse());
       setAddPostErr(false);
       reset();
     }
