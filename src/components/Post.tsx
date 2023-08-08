@@ -1,7 +1,6 @@
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import useAddLike from "../hooks/useAddLike";
 import { PostProp } from "../hooks/usePosts";
-
 import { useState } from "react";
 import PostHeader from "./PostHeader";
 import PostUpdateForm from "./PostUpdateForm";
