@@ -8,6 +8,12 @@ interface Props {
 
 const FriendListComp = ({ data }: Props) => {
   const setUserFrindsArr = Store((s) => s.setUserFrindsArr);
+  const { toggleFriend } = useAddFriend();
+
+  const handleClick = async (id: string) => {
+    const response = await toggleFriend(id);
+    if (response) setUserFrindsArr(response);
+  };
   return (
     <div className="one flex items-center justify-between">
       <div className="image flex items-center gap-2">
@@ -31,10 +37,7 @@ const FriendListComp = ({ data }: Props) => {
         <AiOutlineUserDelete
           size={23}
           className={"cursor-pointer bg-red-400 rounded-xl"}
-          onClick={async () => {
-            const { res } = await useAddFriend(data._id);
-            setUserFrindsArr(res?.data);
-          }}
+          onClick={handleClick}
         />
       </div>
     </div>
