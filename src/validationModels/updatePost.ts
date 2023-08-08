@@ -17,17 +17,15 @@ export const schema = z.object({
     .any()
     .optional()
     .refine((file) => {
-      if (file?.length === 0) return false;
-      else return true;
-    }, "Image is required")
-    .refine((file) => {
-      if (file?.length > 0) return file[0].size < MAX_FILE_SIZE;
+      if (file?.length === 0 || !file) return true; // Skip checks if file is not provided
+      if (file.length > 0) return file[0].size < MAX_FILE_SIZE;
     }, `Max image size is 5MB.`)
     .refine((file) => {
-      if (file?.length > 0) return ACCEPTED_IMAGE_TYPES.includes(file[0].type);
+      if (file?.length === 0 || !file) return true; // Skip checks if file is not provided
+      if (file.length > 0) return ACCEPTED_IMAGE_TYPES.includes(file[0].type);
     }, "Only .jpg, .jpeg, .png and .webp formats are supported."),
 });
 
-type HomeSchemaForm = z.infer<typeof schema>;
+type UpdateSchemaForm = z.infer<typeof schema>;
 
-export default HomeSchemaForm;
+export default UpdateSchemaForm;
