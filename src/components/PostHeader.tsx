@@ -42,8 +42,13 @@ const PostHeader = ({
     }
   };
 
-  const { deletePost } = useRemovePost();
+  const handleAddFriend = async (id: string) => {
+    const response = await toggleFriend(id);
+    if (response) setUserFrindsArr(response);
+  };
 
+  const { deletePost } = useRemovePost();
+  const { toggleFriend } = useAddFriend();
   const setUserFrindsArr = Store((s) => s.setUserFrindsArr);
 
   return (
@@ -75,19 +80,13 @@ const PostHeader = ({
             <AiOutlineUserDelete
               size={23}
               className={"cursor-pointer bg-red-400 rounded-xl"}
-              onClick={async () => {
-                const { res } = await useAddFriend(data.userId);
-                setUserFrindsArr(res?.data);
-              }}
+              onClick={() => handleAddFriend(data.userId)}
             />
           ) : (
             <AiOutlineUserAdd
               size={23}
               className={"cursor-pointer bg-blue-400 rounded-xl text-white"}
-              onClick={async () => {
-                const { res } = await useAddFriend(data.userId);
-                setUserFrindsArr(res?.data);
-              }}
+              onClick={() => handleAddFriend(data.userId)}
             />
           )}
         </div>
