@@ -7,7 +7,7 @@ import { PostProp } from "./usePosts";
 
 const useAddLike = (postId: string) => {
   const [error, setError] = useState({} as AxiosError);
-  const [success, setSuccess] = useState<Boolean | null>(null);
+  const [success, setSuccess] = useState<boolean | null>(null);
 
   const toggleLike = async () => {
     try {

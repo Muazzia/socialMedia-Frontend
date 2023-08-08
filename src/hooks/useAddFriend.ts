@@ -1,12 +1,12 @@
 import { AxiosError } from "axios";
-import api from "../services/apiClient";
 import { useState } from "react";
+import api from "../services/apiClient";
 import { UserF } from "../store/store";
 
 const useAddFriend = () => {
   const [res, setRes] = useState<UserF[]>();
   const [error, setError] = useState<AxiosError>();
-  const [success, setSuccess] = useState<Boolean>();
+  const [success, setSuccess] = useState<boolean>();
 
   const toggleFriend = async (fId: string) => {
     try {
