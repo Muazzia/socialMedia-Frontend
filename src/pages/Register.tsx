@@ -21,8 +21,6 @@ const Register = () => {
   const [submitError, setSubmitError] = useState<string | null | unknown>(null);
   const [submitSuccess, setSubmitSuccess] = useState<Boolean>(false);
 
-  const {} = useRegister();
-
   const onSubmit: SubmitHandler<RegisterFormSchemaType> = async (data) => {
     const { firstName, lastName, password, email } = data;
     const file = data.picturePath[0];
