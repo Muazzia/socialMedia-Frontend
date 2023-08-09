@@ -74,7 +74,7 @@ const PostHeader = ({
           <p className="text-sm text-white/60">{data.location}</p>
         </div>
       </div>
-      {!isUserPost && (
+      {!isUserPost ? (
         <div className="addFriend ">
           {isFriend ? (
             <AiOutlineUserDelete
@@ -89,9 +89,9 @@ const PostHeader = ({
               onClick={() => handleAddFriend(data.userId)}
             />
           )}
+          <Link to={`../message/${data.userId}`}>Mes</Link>
         </div>
-      )}
-      {isUserPost && (
+      ) : (
         <>
           <DropdownMenu>
             <DropdownMenuTrigger className="flex focus-visible:outline-none">

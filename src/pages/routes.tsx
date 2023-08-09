@@ -8,6 +8,7 @@ import UserProfile from "./UserProfile";
 import Search from "./Search";
 import Error from "./Error";
 import LogoutPrevent from "./LogoutPrevent";
+import Message from "./Message";
 
 const routes = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const routes = createBrowserRouter([
       {
         path: "search/:searchStr",
         element: <ProtectedRoute children={<Search />} />,
+      },
+      {
+        path: "message/:id",
+        element: <ProtectedRoute children={<Message />} />,
       },
     ],
   },
