@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../@/components/shad/ui/dropdown-menu";
+} from "@/components/shad/ui/dropdown-menu";
 import { MdDeleteForever } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
 import { AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
