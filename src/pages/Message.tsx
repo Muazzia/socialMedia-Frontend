@@ -1,47 +1,122 @@
-import { useEffect } from "react";
-import { Input } from "../../@/components/shad/ui/input";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
+import { Input } from "../../@/components/shad/ui/input";
+import useProfileCard from "../hooks/useProfileCard";
 
 const socket = io("http://localhost:3000");
 
+interface ChatMessage {
+  message: string;
+  _id: string;
+  sender: string;
+  receiver: string;
+}
+
+interface Chat {
+  _id: string;
+  participants: string[];
+  messages: ChatMessage[];
+}
+
 const Message = () => {
-  const arr = Array(10).fill(1);
+  const [chat, setChat] = useState<ChatMessage[]>([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const { id } = useParams();
+  const userId = localStorage.getItem("socialUserId");
+
+  const handleIncomingChat = (payload: ChatMessage) => {
+    setChat((prevChat) => [payload, ...prevChat]);
+  };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    socket.emit("chat", {
+      sender: userId,
+      receiver: id,
+      message: inputValue,
+    });
+
+    setInputValue("");
+  };
+
+  //   on Submit handles
+  useEffect(() => {
+    socket.on("chat", handleIncomingChat);
+
+    return () => {
+      socket.off("chat", handleIncomingChat);
+    };
+  }, []);
 
   useEffect(() => {
-    socket.on("chat", (payload) => {
-      console.log(payload);
-    });
+    let roomName: any;
+    if (userId && id) {
+      roomName = userId < id ? `${userId}-${id}` : `${id}-${userId}`;
+      socket.emit("joinRoom", roomName);
+    }
+
+    return () => {
+      socket.emit("leaveRoom", roomName);
+    };
   }, []);
+
+  //   on reload handles
+  useEffect(() => {
+    socket.emit(
+      "getAllChats",
+      {
+        sender: userId,
+        receiver: id,
+      },
+      (receivedChats: Chat) => {
+        if (receivedChats?.messages)
+          setChat([...receivedChats.messages.reverse()]);
+      }
+    );
+  }, []);
+
+  const { res } = useProfileCard(id || "");
+
   return (
-    <section
-      id="message"
-      className="mx-auto w-full  sm:w-2/3 md:w-1/2 mt-4 border-white/40 border p-2 rounded-md"
-    >
-      <div className="box relative flex  gap-2 h-[270px] overflow-y-scroll no-scrollbar flex-col-reverse">
-        {arr.map((_, i) => (
-          <div key={i}>
-            <div className="sender">
-              <div className=" px-2 bg-gray-500 w-fit rounded-md">Hi</div>
-            </div>
-            <div className="receiver">
-              <div className=" px-2 bg-blue-500 w-fit rounded-md float-right ">
-                Hello
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          socket.emit("message", "this is message");
-        }}
-      >
-        <div className="input flex gap-3 mt-2 border-t-2 border-white/50 items-end">
-          <Input className="h-8 text-black mt-2" />
-          <button className="px-2 h-8 bg-blue-500 rounded-md">Send</button>
+    <section id="message" className="">
+      <div className="relative chatBox mx-auto w-full overflow-hidden sm:w-2/3 md:w-1/2 mt-4 border-white/40 border p-2 rounded-md">
+        <div className="bg-[#202020] h-8 z-10 px-2 items-center  w-full absolute inset-0 flex">
+          <p className="text-xl">
+            {res?.firstName} {res?.lastName}
+          </p>
         </div>
-      </form>
+        <div className="box relative flex  gap-2 h-[270px] overflow-y-scroll no-scrollbar flex-col-reverse">
+          {chat.map((c, i) => (
+            <div key={i}>
+              {userId !== c.sender.toString() ? (
+                <div className="receiver">
+                  <div className=" px-2 bg-gray-500 w-fit rounded-md">
+                    {c.message}
+                  </div>
+                </div>
+              ) : (
+                <div className="sender">
+                  <div className=" px-2 bg-blue-500 w-fit rounded-md float-right ">
+                    {c.message}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="input flex gap-3 mt-2 border-t-2 border-white/50 items-end">
+            <Input
+              className="h-8 text-black mt-2"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+            <input type="submit" />
+            {/* <button className="px-2 h-8 bg-blue-500 rounded-md">Send</button> */}
+          </div>
+        </form>
+      </div>
     </section>
   );
 };
