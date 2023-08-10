@@ -46,7 +46,7 @@ const useProfileCard = (id: string) => {
     fetcingData();
   }, []);
 
-  return { res, error, success };
+  return { res, error, success, setRes };
 };
 
 export default useProfileCard;

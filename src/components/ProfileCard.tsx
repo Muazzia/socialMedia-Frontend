@@ -17,25 +17,52 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./shad/ui/dialog";
+import useUpdateUser from "@/hooks/useUpdateUser";
+import { useState } from "react";
+import Store from "@/store/store";
 
 interface Props {
   id: string;
 }
 
 const ProfileCard = ({ id }: Props) => {
-  const { res: result, error } = useProfileCard(id);
+  const { res: result, error, setRes: setResult } = useProfileCard(id);
+  const [isOpen, setIsOpen] = useState(false);
   const userId = localStorage.getItem("socialUserId") || "";
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<UpdateUserSchema>({
     resolver: zodResolver(schema),
   });
 
+  const { fetch } = useUpdateUser();
+
+  const setUserImgPath = Store((s) => s.setUserImgPath);
+
   const onSubmit: SubmitHandler<UpdateUserSchema> = async (data) => {
-    console.log(data);
+    const { firstName, lastName, password, email, location, occupation } = data;
+    const file = data.picturePath[0];
+
+    const formData = new FormData();
+    formData.append("picturePath", file);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("password", password);
+    formData.append("email", email);
+    if (location) formData.append("location", location);
+    if (occupation) formData.append("occupation", occupation);
+
+    const response = await fetch(formData);
+    if (response) {
+      setResult(response);
+      setIsOpen(false);
+      setUserImgPath(response.picturePath || "");
+      reset();
+    }
   };
 
   if ("string" === typeof error && error) return error;
@@ -62,7 +89,7 @@ const ProfileCard = ({ id }: Props) => {
           </div>
         </div>
         {userId === id && (
-          <Dialog>
+          <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
             <DialogTrigger asChild>
               <button>
                 <BiEdit size={20} />
