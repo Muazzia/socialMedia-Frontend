@@ -1,19 +1,18 @@
-import { Link } from "react-router-dom";
-import { PostProp } from "../hooks/usePosts";
-import useRemovePost from "../hooks/useRemovePost";
-import Store from "../store/store";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/shad/ui/dropdown-menu";
-import { MdDeleteForever } from "react-icons/md";
-import { GrUpdate } from "react-icons/gr";
 import { AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
-import useAddFriend from "../hooks/useAddFriend";
 import { BiMessageAltDetail } from "react-icons/bi";
+import { GrUpdate } from "react-icons/gr";
+import { MdDeleteForever } from "react-icons/md";
+import { Link } from "react-router-dom";
+import useAddFriend from "../hooks/useAddFriend";
+import { PostProp } from "../hooks/usePosts";
+import useRemovePost from "../hooks/useRemovePost";
+import Store from "../store/store";
 
 interface Props {
   data: PostProp;
@@ -113,7 +112,6 @@ const PostHeader = ({
                 Delete
                 <MdDeleteForever color={"red"} />
               </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-black text-black" />
               <DropdownMenuItem
                 onClick={() => {
                   setShowUpdate(!showUpdate);

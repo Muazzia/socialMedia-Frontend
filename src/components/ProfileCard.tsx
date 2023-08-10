@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./shad/ui/dialog";
-import { Label } from "../../@/components/shad/ui/label";
+import { Label } from "@/components/shad/ui/label";
 import { Input } from "@/components/shad/ui/input";
 import { BiEdit } from "react-icons/bi";
 
