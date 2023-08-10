@@ -3,6 +3,7 @@ import { User } from "../hooks/useProfileCard";
 import useAddFriend from "../hooks/useAddFriend";
 import Store from "../store/store";
 import { Link } from "react-router-dom";
+import { BiMessageAltDetail } from "react-icons/bi";
 
 interface Props {
   data: User;
@@ -42,19 +43,20 @@ const UserCard = ({ data, isFriend, isUser }: Props) => {
           </Link>
           <div>
             {!isUser && (
-              <div className="addFriend ">
+              <div className="addFriend flex gap-2">
+                <Link to={`/message/${data._id}`} preventScrollReset={true}>
+                  <BiMessageAltDetail size={23} />
+                </Link>
                 {isFriend ? (
                   <AiOutlineUserDelete
                     size={23}
-                    className={"cursor-pointer bg-red-400 rounded-xl"}
+                    className={"cursor-pointer rounded-xl"}
                     onClick={() => handleClick(data._id)}
                   />
                 ) : (
                   <AiOutlineUserAdd
                     size={23}
-                    className={
-                      "cursor-pointer bg-blue-400 rounded-xl text-white"
-                    }
+                    className={"cursor-pointer rounded-xl text-white"}
                     onClick={() => handleClick(data._id)}
                   />
                 )}

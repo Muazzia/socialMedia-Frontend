@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import { Input } from "../../@/components/shad/ui/input";
@@ -22,6 +22,7 @@ interface Chat {
 const Message = () => {
   const [chat, setChat] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState("");
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const { id } = useParams();
   const userId = localStorage.getItem("socialUserId");
@@ -38,6 +39,7 @@ const Message = () => {
     });
 
     setInputValue("");
+    if (inputRef.current) inputRef.current.focus();
   };
 
   //   on Submit handles
@@ -74,6 +76,7 @@ const Message = () => {
           setChat([...receivedChats.messages.reverse()]);
       }
     );
+    if (inputRef.current) inputRef.current.focus();
   }, []);
 
   const { res } = useProfileCard(id || "");
@@ -86,18 +89,18 @@ const Message = () => {
             {res?.firstName} {res?.lastName}
           </p>
         </div>
-        <div className="box relative flex  gap-2 h-[270px] overflow-y-scroll no-scrollbar flex-col-reverse">
+        <div className="box relative flex   gap-2 h-[270px] overflow-y-scroll no-scrollbar flex-col-reverse">
           {chat.map((c, i) => (
             <div key={i}>
               {userId !== c.sender.toString() ? (
-                <div className="receiver">
-                  <div className=" px-2 bg-gray-500 w-fit rounded-md">
+                <div className="receiver w-full">
+                  <div className=" px-2 bg-gray-500 float-left max-w-[70%] rounded-md whitespace-normal break-words">
                     {c.message}
                   </div>
                 </div>
               ) : (
-                <div className="sender">
-                  <div className=" px-2 bg-blue-500 w-fit rounded-md float-right ">
+                <div className="sender w-full ">
+                  <div className=" px-2 bg-blue-500 max-w-[70%] rounded-md  float-right whitespace-normal break-words ">
                     {c.message}
                   </div>
                 </div>
@@ -111,9 +114,13 @@ const Message = () => {
               className="h-8 text-black mt-2"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
+              ref={inputRef}
             />
-            <input type="submit" />
-            {/* <button className="px-2 h-8 bg-blue-500 rounded-md">Send</button> */}
+            <input
+              type="submit"
+              value={"Send"}
+              className="px-2 h-8 bg-blue-500 rounded-md hover:bg-blue-500/50 cursor-pointer"
+            />
           </div>
         </form>
       </div>

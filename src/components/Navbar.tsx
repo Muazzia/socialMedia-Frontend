@@ -78,7 +78,7 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        className={`menus z-10 block md:hidden transition-all ease-in-out duration-1000 absolute w-full bg-[#2c2d2f] min-h-[220px] top-0 text-white ${
+        className={`menus z-20 block md:hidden transition-all ease-in-out duration-1000 absolute w-full bg-[#2c2d2f] min-h-[220px] top-0 text-white ${
           showMenu
             ? "translate-y-0 opacity-100"
             : "translate-y-[-400px] opacity-0"

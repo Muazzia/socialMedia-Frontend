@@ -13,6 +13,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
 import { AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
 import useAddFriend from "../hooks/useAddFriend";
+import { BiMessageAltDetail } from "react-icons/bi";
 
 interface Props {
   data: PostProp;
@@ -75,7 +76,11 @@ const PostHeader = ({
         </div>
       </div>
       {!isUserPost ? (
-        <div className="addFriend ">
+        <div className="addFriend flex gap-2 items-center">
+          <Link to={`/message/${data.userId}`} preventScrollReset={true}>
+            <BiMessageAltDetail size={23} />
+          </Link>
+
           {isFriend ? (
             <AiOutlineUserDelete
               size={23}
@@ -89,7 +94,6 @@ const PostHeader = ({
               onClick={() => handleAddFriend(data.userId)}
             />
           )}
-          <Link to={`../message/${data.userId}`}>Mes</Link>
         </div>
       ) : (
         <>
