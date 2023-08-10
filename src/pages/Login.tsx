@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Input } from "../../@/components/shad/ui/input";
+import { Input } from "@/components/shad/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import LoginFormSchemaType, { schema } from "../validationModels/login";
 import useLogin from "../hooks/useLogin";

@@ -3,7 +3,7 @@ import Store from "../store/store";
 import HomeSchemaForm, { schema } from "../validationModels/home";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useAddPost from "../hooks/useAddPost";
-import { Input } from "../../@/components/shad/ui/input";
+import { Input } from "@/components/shad/ui/input";
 import { AiOutlinePicture } from "react-icons/ai";
 import { PostProp } from "../hooks/usePosts";
 import { useState } from "react";

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
-import { Input } from "../../@/components/shad/ui/input";
+import { Input } from "@/components/shad/ui/input";
 import useProfileCard from "../hooks/useProfileCard";
 
 const socket = io("http://localhost:3000");

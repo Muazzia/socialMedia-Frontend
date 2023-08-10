@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import UpdateSchemaForm, { schema } from "../validationModels/updatePost";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useUpdatePost from "../hooks/useUpdatePost";
-import { Input } from "../../@/components/shad/ui/input";
+import { Input } from "@/components/shad/ui/input";
 import { PostProp } from "../hooks/usePosts";
 
 interface Props {
