@@ -1,4 +1,10 @@
+import { Input } from "@/components/shad/ui/input";
+import { Label } from "@/components/shad/ui/label";
+import UpdateUserSchema, { schema } from "@/validationModels/updateUser";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { AiFillLinkedin } from "react-icons/ai";
+import { BiEdit } from "react-icons/bi";
 import { FiMapPin, FiTwitter } from "react-icons/fi";
 import { PiBagSimpleBold } from "react-icons/pi";
 import useProfileCard from "../hooks/useProfileCard";
@@ -11,9 +17,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./shad/ui/dialog";
-import { Label } from "@/components/shad/ui/label";
-import { Input } from "@/components/shad/ui/input";
-import { BiEdit } from "react-icons/bi";
 
 interface Props {
   id: string;
@@ -22,6 +25,18 @@ interface Props {
 const ProfileCard = ({ id }: Props) => {
   const { res: result, error } = useProfileCard(id);
   const userId = localStorage.getItem("socialUserId") || "";
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UpdateUserSchema>({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit: SubmitHandler<UpdateUserSchema> = async (data) => {
+    console.log(data);
+  };
 
   if ("string" === typeof error && error) return error;
   return (
@@ -53,76 +68,175 @@ const ProfileCard = ({ id }: Props) => {
                 <BiEdit size={20} />
               </button>
             </DialogTrigger>
-            <DialogContent className="bg-[#202020] transition-all duration-1000 md:max-w-[550px] p-3 rounded-lg   ">
-              <DialogHeader className="h-fit">
+            <DialogContent className="bg-[#202020] md:max-w-[550px] ">
+              <DialogHeader>
                 <DialogTitle className="font-bold">Edit profile</DialogTitle>
-                <DialogDescription>
+                <DialogDescription className="text-white/80 font-semibold">
                   Make changes to your profile here. Click save when you're
                   done.
                 </DialogDescription>
               </DialogHeader>
-
-              <div className="grid gap-4 py-4 mx-4">
-                <div className="grid grid-cols-5 items-center gap-4">
-                  <Label htmlFor="firstname" className="text-right">
-                    First Name
-                  </Label>
-                  <Input
-                    id="firstname"
-                    className="col-span-4 h-9 text-black "
-                  />
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="grid gap-4 py-4 mx-4">
+                  <div className="grid grid-cols-5 items-center gap-4">
+                    <Label htmlFor="firstname" className="text-right">
+                      First Name
+                    </Label>
+                    <div className="col-span-4">
+                      <Input
+                        id="firstname"
+                        defaultValue={result?.firstName || ""}
+                        {...register("firstName")}
+                        className="col-span-4 h-9 text-black "
+                      />
+                      {errors.firstName && (
+                        <p className="text-red-500/95 m-0 text-xs">
+                          {errors.firstName.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-5 items-center gap-4">
+                    <Label htmlFor="lastName" className="text-right">
+                      Last Name
+                    </Label>
+                    <div className="col-span-4">
+                      <Input
+                        id="lastName"
+                        defaultValue={result?.lastName || ""}
+                        className="col-span-4 h-9 text-black"
+                        {...register("lastName")}
+                      />
+                      {errors.lastName && (
+                        <p className="text-red-500/95 m-0 text-xs">
+                          {errors.lastName.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-5 items-center gap-4">
+                    <Label htmlFor="email" className="text-right">
+                      Email
+                    </Label>
+                    <div className="col-span-4">
+                      <Input
+                        id="email"
+                        defaultValue={result?.email || ""}
+                        type="email"
+                        autoComplete="username"
+                        className="col-span-4 h-9 text-black"
+                        {...register("email")}
+                      />
+                      {errors.email && (
+                        <p className="text-red-500/95 m-0 text-xs">
+                          {errors.email.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-5 items-center gap-4">
+                    <Label htmlFor="password" className="text-right">
+                      Password
+                    </Label>
+                    <div className="col-span-4">
+                      <Input
+                        id="password"
+                        defaultValue={result?.password || ""}
+                        type="password"
+                        autoComplete="new-password"
+                        className="col-span-4 h-9 text-black"
+                        {...register("password")}
+                      />
+                      {errors.password && (
+                        <p className="text-red-500/95 m-0 text-xs">
+                          {errors.password.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-5 items-center gap-4">
+                    <Label htmlFor="confirmpassword" className="text-right">
+                      Confirm Password
+                    </Label>
+                    <div className="col-span-4">
+                      <Input
+                        id="confirmpassword"
+                        defaultValue={result?.password || ""}
+                        type="password"
+                        autoComplete="new-password"
+                        className="col-span-4 h-9 text-black"
+                        {...register("confirmPassword")}
+                      />
+                      {errors.confirmPassword && (
+                        <p className="text-red-500/95 m-0 text-xs">
+                          {errors.confirmPassword.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-5 items-center gap-4">
+                    <Label htmlFor="location" className="text-right">
+                      Location
+                    </Label>
+                    <div className="col-span-4">
+                      <Input
+                        id="location"
+                        defaultValue={result?.location || ""}
+                        className="col-span-4 h-9 text-black"
+                        {...register("location")}
+                      />
+                      {errors.location && (
+                        <p className="text-red-500/95 m-0 text-xs">
+                          {errors.location.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-5 items-center gap-4">
+                    <Label htmlFor="occupation" className="text-right">
+                      Ocupation
+                    </Label>
+                    <div className="col-span-4">
+                      <Input
+                        id="occupation"
+                        defaultValue={result?.occupation || ""}
+                        className="col-span-4 h-9 text-black"
+                        {...register("occupation")}
+                      />
+                      {errors.occupation && (
+                        <p className="text-red-500/95 m-0 text-xs">
+                          {errors.occupation.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-5 items-center gap-4">
+                    <Label htmlFor="picturePath" className="text-right">
+                      Picture
+                    </Label>
+                    <div className="col-span-4">
+                      <Input
+                        type="file"
+                        {...register("picturePath")}
+                        className="text-black/50 cursor-pointer"
+                      />
+                      {errors.picturePath && (
+                        <span className="text-red-500/95 m-0 text-xs">
+                          {errors.picturePath.message?.toString()}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div className="grid grid-cols-5 items-center gap-4">
-                  <Label htmlFor="lastName" className="text-right">
-                    Last Name
-                  </Label>
-                  <Input id="lastName" className="col-span-4 h-9 text-black" />
-                </div>
-                <div className="grid grid-cols-5 items-center gap-4">
-                  <Label htmlFor="email" className="text-right">
-                    Email
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    className="col-span-4 h-9 text-black"
-                  />
-                </div>
-                <div className="grid grid-cols-5 items-center gap-4">
-                  <Label htmlFor="password" className="text-right">
-                    Password
-                  </Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    className="col-span-4 h-9 text-black"
-                  />
-                </div>
-                <div className="grid grid-cols-5 items-center gap-4">
-                  <Label htmlFor="location" className="text-right">
-                    Location
-                  </Label>
-                  <Input id="location" className="col-span-4 h-9 text-black" />
-                </div>
-                <div className="grid grid-cols-5 items-center gap-4">
-                  <Label htmlFor="occupation" className="text-right">
-                    Ocupation
-                  </Label>
-                  <Input
-                    id="occupation"
-                    className="col-span-4 h-9 text-black"
-                  />
-                </div>
-              </div>
-
-              <DialogFooter className="h-fit flex justify-end flex-row mr-4">
-                <button
-                  type="submit"
-                  className="bg-black  text-white font-bold w-fit rounded-md px-2 py-[4px]"
-                >
-                  Save changes
-                </button>
-              </DialogFooter>
+                <DialogFooter>
+                  <button
+                    type="submit"
+                    className="bg-black  text-white font-bold w-fit rounded-md px-2 py-[4px]"
+                  >
+                    Save changes
+                  </button>
+                </DialogFooter>
+              </form>
             </DialogContent>
           </Dialog>
         )}
