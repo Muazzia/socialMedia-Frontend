@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import api from "../services/apiClient";
+import Store from "@/store/store";
 
 export type PostProp = {
   _id: string;
@@ -20,6 +21,8 @@ const usePosts = () => {
   const [error, setError] = useState({} as AxiosError);
   const [success, setSuccess] = useState<Boolean | null>(null);
 
+  const userImg = Store((s) => s.userImgPath);
+
   useEffect(() => {
     const FetchingData = async () => {
       try {
@@ -38,7 +41,7 @@ const usePosts = () => {
     };
 
     FetchingData();
-  }, []);
+  }, [userImg]);
   return { res, setRes, error, success };
 };
 
