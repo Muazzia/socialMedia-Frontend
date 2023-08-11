@@ -41,22 +41,26 @@ const Navbar = () => {
     navigate(`../search/${search}`);
   };
 
+  const token = localStorage.getItem("authToken");
+
   return (
     <nav className="bg-black border-b border-b-black relative">
       <div className="mx-4 lg:max-w-[1015px] lg:mx-auto flex p-3 justify-between items-center">
         <div className="left text-xl text-white flex justify-between items-center gap-2">
-          <Link to={"/home"} className="logo cursor-pointer">
+          <Link to={"/home"} className="logo cursor-pointer font-bold text  ">
             Social Media
           </Link>
-          <div className="search hidden md:block">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex">
-              <Input
-                placeholder="Search"
-                {...register("search")}
-                className="w-[180px] h-10 dark:autofill:bg-black"
-              />
-            </form>
-          </div>
+          {token && (
+            <div className="search hidden md:block">
+              <form onSubmit={handleSubmit(onSubmit)} className="flex">
+                <Input
+                  placeholder="Search"
+                  {...register("search")}
+                  className="w-[180px] h-10 dark:autofill:bg-black"
+                />
+              </form>
+            </div>
+          )}
         </div>
         <div className="right">
           {/* <div className="burger block md:hidden">
@@ -66,13 +70,15 @@ const Navbar = () => {
               onClick={() => setShowMenu(!showMenu)}
             />
           </div> */}
-          <div className="flex items-center ">
-            <ul className="flex gap-5 text-white items-center">
-              <li>
-                <AvatarMenu />
-              </li>
-            </ul>
-          </div>
+          {token && (
+            <div className="flex items-center ">
+              <ul className="flex gap-5 text-white items-center">
+                <li>
+                  <AvatarMenu />
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
       {/* Mobile menu */}

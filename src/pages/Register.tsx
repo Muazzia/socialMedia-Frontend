@@ -11,7 +11,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<RegisterFormSchemaType>({
     resolver: zodResolver(schema),
   });
@@ -54,7 +54,7 @@ const Register = () => {
           <div>
             <Input placeholder="FirstName" {...register("firstName")} />
             {errors.firstName && (
-              <span className="text-red-800 block ml-2">
+              <span className="text-red-800 block ml-2 mt-1 font-bold">
                 {errors.firstName?.message}
               </span>
             )}
@@ -63,7 +63,7 @@ const Register = () => {
           <div>
             <Input placeholder="LastName" {...register("lastName")} />
             {errors.lastName && (
-              <span className="text-red-800 block ml-2">
+              <span className="text-red-800 block ml-2 mt-1 font-bold">
                 {errors.lastName?.message}
               </span>
             )}
@@ -71,7 +71,7 @@ const Register = () => {
           <div>
             <Input placeholder="Email" {...register("email")} />
             {errors.email && (
-              <span className="text-red-800 block ml-2">
+              <span className="text-red-800 block ml-2 mt-1 font-bold">
                 {errors.email?.message}
               </span>
             )}
@@ -79,7 +79,7 @@ const Register = () => {
           <div>
             <Input placeholder="Password" {...register("password")} />
             {errors.password && (
-              <span className="text-red-800 block ml-2">
+              <span className="text-red-800 block ml-2 mt-1 font-bold">
                 {errors.password?.message}
               </span>
             )}
@@ -90,7 +90,7 @@ const Register = () => {
               {...register("confirmPassword")}
             />
             {errors.confirmPassword && (
-              <span className="text-red-800 block ml-2">
+              <span className="text-red-800 block ml-2 mt-1 font-bold">
                 {errors.confirmPassword?.message}
               </span>
             )}
@@ -102,7 +102,7 @@ const Register = () => {
               className="text-white"
             />
             {errors.picturePath && (
-              <span className="text-red-800 block ml-2">
+              <span className="text-red-800 block ml-2 mt-1 font-bold">
                 {errors.picturePath.message?.toString()}
               </span>
             )}
@@ -111,11 +111,15 @@ const Register = () => {
             <p className="text-white/50 ml-2 block">{submitError}</p>
           )}
           {submitSuccess && (
-            <p className=" text-white/50 ml-2">Registered Successfully</p>
+            <p className="text-white/80 font-bold ml-2">
+              Registered Successfully
+            </p>
           )}
           <div className="flex justify-end">
             <button
-              className="bg-black border border-white text-white px-2 py-1 rounded-md"
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-black border border-white text-white px-2 py-1 rounded-md hover:bg-[#fafafa] hover:text-black font-medium"
               // disabled={isSubmitting}
             >
               Submit

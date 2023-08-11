@@ -45,7 +45,7 @@ const Login = () => {
               autoComplete="email"
             />
             {errors.email && (
-              <span className="text-red-800 block ml-2">
+              <span className="text-red-800 block ml-2  mt-1 font-bold">
                 {errors.email?.message}
               </span>
             )}
@@ -59,16 +59,20 @@ const Login = () => {
               {...register("password")}
             />
             {errors.password && (
-              <span className="text-red-800 block ml-2">
+              <span className="text-red-800 block ml-2 mt-1 font-bold">
                 {errors.password?.message}
               </span>
             )}
           </div>
           {typeof submitError === "string" && submitError && (
-            <p className="text-red-800 ml-2 block">{submitError}</p>
+            <p className="text-red-800 ml-2 block mt-1 font-bold">
+              {submitError}
+            </p>
           )}
           {submitSuccess && (
-            <p className=" text-green-700 ml-2">LoggedIn Successfully</p>
+            <p className=" text-white/80 font-bold ml-2">
+              Logged In Successfully
+            </p>
           )}
           <div className="flex justify-end gap-2">
             <Link
@@ -80,7 +84,8 @@ const Login = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="bg-gray-600 border border-white text-white px-2 py-1 rounded-md"
+              className="bg-black border border-white text-white px-2 py-1 rounded-md hover:bg-[#fafafa] hover:text-black font-medium"
+              // disabled={isSubmitting}
             >
               Submit
             </button>
