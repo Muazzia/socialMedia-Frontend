@@ -29,7 +29,7 @@ const FriendListComp = ({ data }: Props) => {
           )}
         </div>
         <div className="flex flex-col">
-          <h2 className="text-md">{data.firstName + "" + data.lastName}</h2>
+          <h2 className="text-md">{data.firstName + " " + data.lastName}</h2>
           <p className="text-sm text-white/60">{data.location}</p>
         </div>
       </div>

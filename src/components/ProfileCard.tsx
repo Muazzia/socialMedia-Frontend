@@ -83,7 +83,7 @@ const ProfileCard = ({ id }: Props) => {
           </div>
           <div className="flex flex-col">
             <h2 className="text-md">
-              {result?.firstName + "" + result?.lastName}
+              {result?.firstName + " " + result?.lastName}
             </h2>
             <p className="text-sm text-white/60">{result?.location}</p>
           </div>
