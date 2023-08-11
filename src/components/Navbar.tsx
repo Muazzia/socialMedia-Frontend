@@ -1,25 +1,24 @@
-import { useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { Link, useNavigate } from "react-router-dom";
-import { Input } from "@/components/shad/ui/input";
-import { SubmitHandler, useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/shad/ui/dropdown-menu";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/components/shad/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/shad/ui/dropdown-menu";
+import { Input } from "@/components/shad/ui/input";
 import Store from "@/store/store";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { AiOutlineClose } from "react-icons/ai";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { Link, useNavigate } from "react-router-dom";
+import * as z from "zod";
 
 const schema = z.object({
   search: z
@@ -37,6 +36,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
+    setUserImgPath("/");
     navigate("/");
   };
 
@@ -50,6 +50,7 @@ const Navbar = () => {
   };
 
   const userImgPath = Store((s) => s.userImgPath);
+  const setUserImgPath = Store((s) => s.setUserImgPath);
   return (
     <nav className="bg-black border-b border-b-black relative">
       <div className="mx-4 lg:max-w-[1015px] lg:mx-auto flex p-3 justify-between items-center">
@@ -85,31 +86,28 @@ const Navbar = () => {
                 <DropdownMenu>
                   <DropdownMenuTrigger>
                     <Avatar>
-                      <AvatarImage
-                        src={`http://localhost:3000/${userImgPath}/1`}
-                        alt="profileImg"
-                      />
+                      {userImgPath && (
+                        <AvatarImage
+                          src={`http://localhost:3000/${userImgPath}`}
+                          alt="profileImg"
+                        />
+                      )}
                       <AvatarFallback>P</AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>Billing</DropdownMenuItem>
-                    <DropdownMenuItem>Team</DropdownMenuItem>
-                    <DropdownMenuItem>Subscription</DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        handleLogout();
+                      }}
+                    >
+                      Logout
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </li>
-              <li
-                className="text-white cursor-pointer"
-                onClick={() => {
-                  handleLogout();
-                }}
-              >
-                Logout
-              </li>
+              <li className="text-white cursor-pointer"></li>
             </ul>
           </div>
         </div>
