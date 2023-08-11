@@ -1,6 +1,7 @@
 import { AiOutlineUserDelete } from "react-icons/ai";
 import Store, { UserF } from "../store/store";
 import useAddFriend from "../hooks/useAddFriend";
+import { Link } from "react-router-dom";
 
 interface Props {
   data: UserF;
@@ -29,14 +30,16 @@ const FriendListComp = ({ data }: Props) => {
           )}
         </div>
         <div className="flex flex-col">
-          <h2 className="text-md">{data.firstName + " " + data.lastName}</h2>
+          <Link to={`/profile/${data._id}`} className="hover:underline">
+            <h2 className="text-md">{data.firstName + " " + data.lastName}</h2>
+          </Link>
           <p className="text-sm text-white/60">{data.location}</p>
         </div>
       </div>
       <div className="addFriend ">
         <AiOutlineUserDelete
           size={23}
-          className={"cursor-pointer bg-red-400 rounded-xl"}
+          className={"cursor-pointer  rounded-xl"}
           onClick={() => handleClick(data._id)}
         />
       </div>

@@ -84,13 +84,13 @@ const PostHeader = ({
           {isFriend ? (
             <AiOutlineUserDelete
               size={23}
-              className={"cursor-pointer bg-red-400 rounded-xl"}
+              className={"cursor-pointer  rounded-xl"}
               onClick={() => handleAddFriend(data.userId)}
             />
           ) : (
             <AiOutlineUserAdd
               size={23}
-              className={"cursor-pointer bg-blue-400 rounded-xl text-white"}
+              className={"cursor-pointer  rounded-xl text-white"}
               onClick={() => handleAddFriend(data.userId)}
             />
           )}
