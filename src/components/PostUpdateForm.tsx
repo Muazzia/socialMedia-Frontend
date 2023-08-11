@@ -99,9 +99,9 @@ const PostUpdateForm = ({
             onClick={() => {
               setSelectedFile(true);
             }}
-            className="bg-white px-1 py-1 rounded-md text-black hover:bg-black hover:text-white"
+            className="bg-white border border-white hover:bg-black/60 hover:text-white text-black font-medium px-2 py-1 rounded-md"
           >
-            update
+            Update
           </button>
         ) : (
           <button
@@ -110,7 +110,7 @@ const PostUpdateForm = ({
               setSelectedFile(false);
               setContainsImage(false);
             }}
-            className="bg-white px-1 py-1 rounded-md text-black hover:bg-black hover:text-white"
+            className="bg-white border border-white hover:bg-black/60 hover:text-white text-black font-medium px-2 py-1 rounded-md"
           >
             Cancel
           </button>
@@ -124,11 +124,14 @@ const PostUpdateForm = ({
             setSelectedFile(false);
             setContainsImage(false);
           }}
-          className="bg-white px-1 py-1 rounded-md text-black hover:bg-black hover:text-white"
+          className="bg-white border border-white hover:bg-black/60 hover:text-white text-black font-medium px-2 py-1 rounded-md"
         >
           Cancel
         </button>
-        <button type="submit" className="bg-blue-500 px-1 py-1 rounded-md">
+        <button
+          type="submit"
+          className="bg-black border border-white text-white px-2 py-1 rounded-md hover:bg-[#fafafa] hover:text-black font-medium"
+        >
           Submit
         </button>
       </div>
