@@ -15,8 +15,6 @@ import Store from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AiOutlineClose } from "react-icons/ai";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { Link, useNavigate } from "react-router-dom";
 import * as z from "zod";
 
@@ -34,12 +32,6 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    setUserImgPath("/");
-    navigate("/");
-  };
-
   const { register, handleSubmit, reset } = useForm<SearchSchema>({
     resolver: zodResolver(schema),
   });
@@ -49,8 +41,6 @@ const Navbar = () => {
     navigate(`../search/${search}`);
   };
 
-  const userImgPath = Store((s) => s.userImgPath);
-  const setUserImgPath = Store((s) => s.setUserImgPath);
   return (
     <nav className="bg-black border-b border-b-black relative">
       <div className="mx-4 lg:max-w-[1015px] lg:mx-auto flex p-3 justify-between items-center">
@@ -63,57 +53,30 @@ const Navbar = () => {
               <Input
                 placeholder="Search"
                 {...register("search")}
-                className="w-[180px] h-10"
+                className="w-[180px] h-10 dark:autofill:bg-black"
               />
             </form>
           </div>
         </div>
         <div className="right">
-          <div className="burger block md:hidden">
+          {/* <div className="burger block md:hidden">
             <GiHamburgerMenu
               size={23}
               color={"white"}
               onClick={() => setShowMenu(!showMenu)}
             />
-          </div>
-          <div className="hidden md:flex items-center ">
+          </div> */}
+          <div className="flex items-center ">
             <ul className="flex gap-5 text-white items-center">
-              <li>Change </li>
-              <li>Notification </li>
-              <li>Bell</li>
-              <li>Help </li>
               <li>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <Avatar>
-                      {userImgPath && (
-                        <AvatarImage
-                          src={`http://localhost:3000/${userImgPath}`}
-                          alt="profileImg"
-                        />
-                      )}
-                      <AvatarFallback>P</AvatarFallback>
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuItem
-                      onClick={() => {
-                        handleLogout();
-                      }}
-                    >
-                      Logout
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <AvatarMenu />
               </li>
-              <li className="text-white cursor-pointer"></li>
             </ul>
           </div>
         </div>
       </div>
       {/* Mobile menu */}
-      <div
+      {/* <div
         className={`mobile:menus z-20 block md:hidden transition-all ease-in-out 
       duration-1000 absolute w-full bg-[#2c2d2f] min-h-[220px] top-0 text-white ${
         showMenu
@@ -130,23 +93,53 @@ const Navbar = () => {
               }}
             />
           </li>
-          <li>Change </li>
-          <li>Notification </li>
-          <li>Bell</li>
-          <li>Help </li>
-          <li
-            className="text-white cursor-pointer"
-            onClick={() => {
-              handleLogout();
-              setShowMenu(!showMenu);
-            }}
-          >
-            Logout
+
+          <li>
+            <AvatarMenu isMobile={true} setShowMenu={setShowMenu} />
           </li>
         </ul>
-      </div>
+      </div> */}
     </nav>
   );
 };
+
+function AvatarMenu() {
+  const userImgPath = Store((s) => s.userImgPath);
+  const setUserImgPath = Store((s) => s.setUserImgPath);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setUserImgPath("/");
+    navigate("/");
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <Avatar>
+          {userImgPath && (
+            <AvatarImage
+              src={`http://localhost:3000/${userImgPath}`}
+              alt="profileImg"
+            />
+          )}
+          <AvatarFallback>P</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => {
+            handleLogout();
+          }}
+        >
+          Logout
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 
 export default Navbar;

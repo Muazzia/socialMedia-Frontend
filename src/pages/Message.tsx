@@ -111,7 +111,7 @@ const Message = () => {
         <form onSubmit={handleSubmit}>
           <div className="input flex gap-3 mt-2 border-t-2 border-white/50 items-end">
             <Input
-              className="h-8 text-black mt-2"
+              className="h-8  mt-2"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               ref={inputRef}

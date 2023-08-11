@@ -98,7 +98,7 @@ const PostHeader = ({
         <>
           <DropdownMenu>
             <DropdownMenuTrigger className="flex focus-visible:outline-none">
-              <div className="font-xl cursor-pointer flex gap-[3px] h-3 ">
+              <div className="font-xl cursor-pointer flex gap-[3px] h-3 w-fit ">
                 <div className="h-1 w-1 bg-white rounded-full" />
                 <div className="h-1 w-1 bg-white rounded-full" />
                 <div className="h-1 w-1 bg-white rounded-full" />
