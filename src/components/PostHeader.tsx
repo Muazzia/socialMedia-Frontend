@@ -6,7 +6,8 @@ import {
 } from "@/components/shad/ui/dropdown-menu";
 import { AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
 import { BiMessageAltDetail } from "react-icons/bi";
-import { GrUpdate } from "react-icons/gr";
+import { RxUpdate } from "react-icons/rx";
+import { IconContext } from "react-icons";
 import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
 import useAddFriend from "../hooks/useAddFriend";
@@ -107,19 +108,31 @@ const PostHeader = ({
             <DropdownMenuContent className="text-black px-[3px] w-[150px] py-[3px] flex flex-col gap-[1px]">
               <DropdownMenuItem
                 onClick={handleDelete}
-                className="flex justify-between"
+                className="flex justify-between rounded-md"
               >
-                Delete
-                <MdDeleteForever color={"red"} className={"text-white"} />
+                <p className="font-semibold uppercase">Delete</p>
+                <IconContext.Provider
+                  value={{ size: "1.2rem", className: "text-white " }}
+                >
+                  <div>
+                    <MdDeleteForever />
+                  </div>
+                </IconContext.Provider>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => {
                   setShowUpdate(!showUpdate);
                 }}
-                className="flex justify-between"
+                className="flex justify-between rounded-md"
               >
-                Update
-                <GrUpdate size={18} />
+                <p className="font-semibold uppercase">Update</p>
+                <IconContext.Provider
+                  value={{ size: "1.1rem", className: "text-white " }}
+                >
+                  <div>
+                    <RxUpdate />
+                  </div>
+                </IconContext.Provider>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
