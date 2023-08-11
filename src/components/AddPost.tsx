@@ -25,7 +25,7 @@ const AddPost = ({ setResult }: Props) => {
   const userImgPath = Store((s) => s.userImgPath);
   const [addPostErr, setAddPostErr] = useState(false);
 
-  const { addPost, success } = useAddPost();
+  const { addPost } = useAddPost();
 
   const onSubmit: SubmitHandler<HomeSchemaForm> = async (data) => {
     const file = data.picturePath[0];
@@ -42,7 +42,8 @@ const AddPost = ({ setResult }: Props) => {
       setAddPostErr(false);
       reset();
     }
-    if (!success) setAddPostErr(true);
+
+    if (!res) setAddPostErr(true);
   };
 
   return (
