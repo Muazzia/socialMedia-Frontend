@@ -290,22 +290,22 @@ const ProfileCard = ({ id }: Props) => {
           <p className="text-white/60">{result?.impressions}</p>
         </div>
       </div>
-      <div className="br h-[1px] w-full bg-white/50" />
-      <div className="fourth flex flex-col gap-3">
-        <div className="flex gap-3">
-          <p className="text-white">Social Platforms</p>
-        </div>
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center gap-3">
-            <AiFillLinkedin size={23} color={"#FFFFFF99"} />
-            <p className="text-white/60"> LinkedIn</p>
+      {/* <div className="br h-[1px] w-full bg-white/50" />
+        <div className="fourth flex flex-col gap-3">
+          <div className="flex gap-3">
+            <p className="text-white">Social Platforms</p>
           </div>
-          <div className="flex items-center gap-3">
-            <FiTwitter size={23} color={"#FFFFFF99"} />
-            <p className="text-white/60"> LinkedIn</p>
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-3">
+              <AiFillLinkedin size={23} color={"#FFFFFF99"} />
+              <p className="text-white/60"> LinkedIn</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <FiTwitter size={23} color={"#FFFFFF99"} />
+              <p className="text-white/60"> LinkedIn</p>
+            </div>
           </div>
-        </div>
-      </div>
+        </div> */}
     </div>
   );
 };
