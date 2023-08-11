@@ -63,10 +63,7 @@ const AddPost = ({ setResult }: Props) => {
             />
           )}
           <div className="flex flex-col w-full">
-            <Input
-              className="rounded-full text-black w-full h-[35px]"
-              {...register("description")}
-            />
+            <Input className="rounded-full" {...register("description")} />
             {errors.description && (
               <p className="text-sm ml-3 text-red-800 mt-2">
                 {errors.description.message}

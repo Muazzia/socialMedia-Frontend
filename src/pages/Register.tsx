@@ -52,11 +52,7 @@ const Register = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <div>
-            <Input
-              placeholder="FirstName"
-              {...register("firstName")}
-              className="text-black"
-            />
+            <Input placeholder="FirstName" {...register("firstName")} />
             {errors.firstName && (
               <span className="text-red-800 block ml-2">
                 {errors.firstName?.message}
@@ -65,11 +61,7 @@ const Register = () => {
           </div>
 
           <div>
-            <Input
-              placeholder="LastName"
-              {...register("lastName")}
-              className="text-black"
-            />
+            <Input placeholder="LastName" {...register("lastName")} />
             {errors.lastName && (
               <span className="text-red-800 block ml-2">
                 {errors.lastName?.message}
@@ -77,11 +69,7 @@ const Register = () => {
             )}
           </div>
           <div>
-            <Input
-              placeholder="Email"
-              {...register("email")}
-              className="text-black"
-            />
+            <Input placeholder="Email" {...register("email")} />
             {errors.email && (
               <span className="text-red-800 block ml-2">
                 {errors.email?.message}
@@ -89,11 +77,7 @@ const Register = () => {
             )}
           </div>
           <div>
-            <Input
-              placeholder="Password"
-              {...register("password")}
-              className="text-black"
-            />
+            <Input placeholder="Password" {...register("password")} />
             {errors.password && (
               <span className="text-red-800 block ml-2">
                 {errors.password?.message}
@@ -104,7 +88,6 @@ const Register = () => {
             <Input
               placeholder="ConfirmPassword"
               {...register("confirmPassword")}
-              className="text-black"
             />
             {errors.confirmPassword && (
               <span className="text-red-800 block ml-2">
@@ -116,7 +99,7 @@ const Register = () => {
             <Input
               type="file"
               {...register("picturePath")}
-              className="text-black/50"
+              className="text-white"
             />
             {errors.picturePath && (
               <span className="text-red-800 block ml-2">

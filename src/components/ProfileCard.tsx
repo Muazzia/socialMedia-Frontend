@@ -114,7 +114,7 @@ const ProfileCard = ({ id }: Props) => {
                         id="firstname"
                         defaultValue={result?.firstName || ""}
                         {...register("firstName")}
-                        className="col-span-4 h-9 text-black "
+                        className="col-span-4 h-9 "
                       />
                       {errors.firstName && (
                         <p className="text-red-500/95 m-0 text-xs">
@@ -131,7 +131,7 @@ const ProfileCard = ({ id }: Props) => {
                       <Input
                         id="lastName"
                         defaultValue={result?.lastName || ""}
-                        className="col-span-4 h-9 text-black"
+                        className="col-span-4 h-9 "
                         {...register("lastName")}
                       />
                       {errors.lastName && (
@@ -151,7 +151,7 @@ const ProfileCard = ({ id }: Props) => {
                         defaultValue={result?.email || ""}
                         type="email"
                         autoComplete="username"
-                        className="col-span-4 h-9 text-black"
+                        className="col-span-4 h-9 "
                         {...register("email")}
                       />
                       {errors.email && (
@@ -171,7 +171,7 @@ const ProfileCard = ({ id }: Props) => {
                         defaultValue={result?.password || ""}
                         type="password"
                         autoComplete="new-password"
-                        className="col-span-4 h-9 text-black"
+                        className="col-span-4 h-9 "
                         {...register("password")}
                       />
                       {errors.password && (
@@ -191,7 +191,7 @@ const ProfileCard = ({ id }: Props) => {
                         defaultValue={result?.password || ""}
                         type="password"
                         autoComplete="new-password"
-                        className="col-span-4 h-9 text-black"
+                        className="col-span-4 h-9 "
                         {...register("confirmPassword")}
                       />
                       {errors.confirmPassword && (
@@ -209,7 +209,7 @@ const ProfileCard = ({ id }: Props) => {
                       <Input
                         id="location"
                         defaultValue={result?.location || ""}
-                        className="col-span-4 h-9 text-black"
+                        className="col-span-4 h-9 "
                         {...register("location")}
                       />
                       {errors.location && (
@@ -227,7 +227,7 @@ const ProfileCard = ({ id }: Props) => {
                       <Input
                         id="occupation"
                         defaultValue={result?.occupation || ""}
-                        className="col-span-4 h-9 text-black"
+                        className="col-span-4 h-9 "
                         {...register("occupation")}
                       />
                       {errors.occupation && (
@@ -245,7 +245,7 @@ const ProfileCard = ({ id }: Props) => {
                       <Input
                         type="file"
                         {...register("picturePath")}
-                        className="text-black/50 cursor-pointer"
+                        className="/50 cursor-pointer"
                       />
                       {errors.picturePath && (
                         <span className="text-red-500/95 m-0 text-xs">

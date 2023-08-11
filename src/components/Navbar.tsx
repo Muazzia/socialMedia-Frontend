@@ -6,6 +6,20 @@ import { Input } from "@/components/shad/ui/input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/shad/ui/dropdown-menu";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/shad/ui/avatar";
+import Store from "@/store/store";
 
 const schema = z.object({
   search: z
@@ -34,6 +48,8 @@ const Navbar = () => {
     reset();
     navigate(`../search/${search}`);
   };
+
+  const userImgPath = Store((s) => s.userImgPath);
   return (
     <nav className="bg-black border-b border-b-black relative">
       <div className="mx-4 lg:max-w-[1015px] lg:mx-auto flex p-3 justify-between items-center">
@@ -46,7 +62,7 @@ const Navbar = () => {
               <Input
                 placeholder="Search"
                 {...register("search")}
-                className="w-[180px] h-10 pl-2 py-1 rounded-md  bg-gray-300 text-gray-700 border-none focus-visible:outline-white"
+                className="w-[180px] h-10"
               />
             </form>
           </div>
@@ -65,6 +81,27 @@ const Navbar = () => {
               <li>Notification </li>
               <li>Bell</li>
               <li>Help </li>
+              <li>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <Avatar>
+                      <AvatarImage
+                        src={`http://localhost:3000/${userImgPath}/1`}
+                        alt="profileImg"
+                      />
+                      <AvatarFallback>P</AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem>Billing</DropdownMenuItem>
+                    <DropdownMenuItem>Team</DropdownMenuItem>
+                    <DropdownMenuItem>Subscription</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </li>
               <li
                 className="text-white cursor-pointer"
                 onClick={() => {
@@ -77,12 +114,14 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      {/* Mobile menu */}
       <div
-        className={`menus z-20 block md:hidden transition-all ease-in-out duration-1000 absolute w-full bg-[#2c2d2f] min-h-[220px] top-0 text-white ${
-          showMenu
-            ? "translate-y-0 opacity-100"
-            : "translate-y-[-400px] opacity-0"
-        } `}
+        className={`mobile:menus z-20 block md:hidden transition-all ease-in-out 
+      duration-1000 absolute w-full bg-[#2c2d2f] min-h-[220px] top-0 text-white ${
+        showMenu
+          ? "translate-y-0 opacity-100"
+          : "translate-y-[-400px] opacity-0"
+      } `}
       >
         <ul className=" relative mx-4 py-6 px-3 text-lg space-y-4 ">
           <li className="absolute right-0">

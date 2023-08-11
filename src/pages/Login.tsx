@@ -40,7 +40,7 @@ const Login = () => {
           <div>
             <Input
               placeholder="email"
-              className="w-full text-black h-10"
+              className="w-full h-10"
               {...register("email")}
               autoComplete="email"
             />
@@ -53,7 +53,7 @@ const Login = () => {
           <div>
             <Input
               placeholder="password"
-              className="w-full text-black h-10"
+              className="w-full h-10"
               autoComplete="current-password"
               type="password"
               {...register("password")}
