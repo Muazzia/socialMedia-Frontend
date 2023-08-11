@@ -107,19 +107,19 @@ const PostHeader = ({
             <DropdownMenuContent className="text-black px-[3px] w-[150px] py-[3px] flex flex-col gap-[1px]">
               <DropdownMenuItem
                 onClick={handleDelete}
-                className="px-2 flex items-bottom  justify-between cursor-pointer py-1 rounded-md focus-visible:outline-none border-none hover:bg-gray-400"
+                className="flex justify-between"
               >
                 Delete
-                <MdDeleteForever color={"red"} />
+                <MdDeleteForever color={"red"} className={"text-white"} />
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => {
                   setShowUpdate(!showUpdate);
                 }}
-                className="px-2 flex items-bottom  justify-between cursor-pointer py-1 rounded-md focus-visible:outline-none border-none hover:bg-gray-400"
+                className="flex justify-between"
               >
                 Update
-                <GrUpdate color={"red"} />
+                <GrUpdate size={18} />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

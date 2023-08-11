@@ -70,11 +70,7 @@ const PostUpdateForm = ({
 
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        defaultValue={data.description}
-        className="text-black"
-        {...register("description")}
-      />
+      <Input defaultValue={data.description} {...register("description")} />
       {!selectedFile ? (
         <div className="three">
           <img
