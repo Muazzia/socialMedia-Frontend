@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import UpdateSchemaForm, { schema } from "../validationModels/updatePost";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -68,9 +68,18 @@ const PostUpdateForm = ({
     }
   };
 
+  const ref: React.RefObject<HTMLInputElement> = useRef(null);
+  useEffect(() => {
+    if (ref.current) ref.current.focus();
+  }, []);
+
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-      <Input defaultValue={data.description} {...register("description")} />
+      <Input
+        defaultValue={data.description}
+        {...register("description")}
+        ref={ref}
+      />
       {!selectedFile ? (
         <div className="three">
           <img
