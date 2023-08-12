@@ -3,13 +3,20 @@ import Post from "../components/Post";
 import ProfileCard from "../components/ProfileCard";
 import useUserProfile from "../hooks/useUserProfile";
 import Store from "../store/store";
+import Skele from "@/components/Skele";
 
 const UserProfile = () => {
   const param = useParams();
-  const { res: result, setRes: setResult } = useUserProfile(param.id || "");
+  const {
+    res: result,
+    setRes: setResult,
+    loading,
+  } = useUserProfile(param.id || "");
   const userId = localStorage.getItem("socialUserId");
 
   const userFriends = Store((s) => s.userFriends);
+
+  console.log(result);
 
   return (
     <section
@@ -20,19 +27,25 @@ const UserProfile = () => {
         <ProfileCard id={param.id || ""} />
       </div>
       <div className="md:col-span-2 flex flex-col gap-4 sm:max-md:mx-auto">
-        {result?.map((p, i) => (
-          <Post
-            key={i}
-            data={p}
-            isFriend={
-              userFriends?.find((e) => e._id === p.userId) ? true : false
-            }
-            isUserPost={userId === p.userId}
-            userId={userId || ""}
-            setUpdated={setResult}
-            arrPost={result}
-          />
-        ))}
+        {loading ? (
+          <Skele />
+        ) : result?.length === 0 ? (
+          <p className="text-white/70 mt-1">No Posts</p>
+        ) : (
+          result?.map((p, i) => (
+            <Post
+              key={i}
+              data={p}
+              isFriend={
+                userFriends?.find((e) => e._id === p.userId) ? true : false
+              }
+              isUserPost={userId === p.userId}
+              userId={userId || ""}
+              setUpdated={setResult}
+              arrPost={result}
+            />
+          ))
+        )}
       </div>
     </section>
   );
