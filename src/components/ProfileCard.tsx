@@ -1,11 +1,14 @@
 import { Input } from "@/components/shad/ui/input";
 import { Label } from "@/components/shad/ui/label";
+import useAddViews from "@/hooks/useAddViews";
+import useUpdateUser from "@/hooks/useUpdateUser";
+import Store from "@/store/store";
 import UpdateUserSchema, { schema } from "@/validationModels/updateUser";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AiFillLinkedin } from "react-icons/ai";
 import { BiEdit } from "react-icons/bi";
-import { FiMapPin, FiTwitter } from "react-icons/fi";
+import { FiMapPin } from "react-icons/fi";
 import { PiBagSimpleBold } from "react-icons/pi";
 import useProfileCard from "../hooks/useProfileCard";
 import {
@@ -17,10 +20,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./shad/ui/dialog";
-import useUpdateUser from "@/hooks/useUpdateUser";
-import { useEffect, useState } from "react";
-import Store from "@/store/store";
-import useAddViews from "@/hooks/useAddViews";
 
 interface Props {
   id: string;
