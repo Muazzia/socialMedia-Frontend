@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import useAddLike from "../hooks/useAddLike";
 import { PostProp } from "../hooks/usePosts";
-import { useState } from "react";
 import PostHeader from "./PostHeader";
 import PostUpdateForm from "./PostUpdateForm";
 
@@ -69,6 +69,12 @@ const Post = ({
               <AiFillHeart
                 size={24}
                 className={"cursor-pointer"}
+                tabIndex={0}
+                onKeyDown={(e: React.KeyboardEvent<SVGSVGElement>) => {
+                  if (e.key === "Enter") {
+                    handleLikeClick();
+                  }
+                }}
                 onClick={() => {
                   handleLikeClick();
                 }}
@@ -77,6 +83,12 @@ const Post = ({
               <AiOutlineHeart
                 size={24}
                 className={"cursor-pointer"}
+                tabIndex={0}
+                onKeyDown={(e: React.KeyboardEvent<SVGSVGElement>) => {
+                  if (e.key === "Enter") {
+                    handleLikeClick();
+                  }
+                }}
                 onClick={() => {
                   handleLikeClick();
                 }}
