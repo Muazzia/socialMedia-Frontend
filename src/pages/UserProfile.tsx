@@ -3,6 +3,8 @@ import ProfileCard from "../components/ProfileCard";
 import Post from "../components/Post";
 import useUserProfile from "../hooks/useUserProfile";
 import Store from "../store/store";
+import useAddViews from "@/hooks/useAddViews";
+import { useEffect } from "react";
 
 const UserProfile = () => {
   const param = useParams();

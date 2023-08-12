@@ -18,8 +18,9 @@ import {
   DialogTrigger,
 } from "./shad/ui/dialog";
 import useUpdateUser from "@/hooks/useUpdateUser";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Store from "@/store/store";
+import useAddViews from "@/hooks/useAddViews";
 
 interface Props {
   id: string;
@@ -29,6 +30,19 @@ const ProfileCard = ({ id }: Props) => {
   const { res: result, error, setRes: setResult } = useProfileCard(id);
   const [isOpen, setIsOpen] = useState(false);
   const userId = localStorage.getItem("socialUserId") || "";
+
+  const { addView } = useAddViews();
+
+  useEffect(() => {
+    const add = async () => {
+      if (id !== userId) {
+        const response = await addView(id);
+        if (response) setResult(response);
+      }
+    };
+
+    add();
+  }, []);
 
   const {
     register,
