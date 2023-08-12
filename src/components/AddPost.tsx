@@ -26,7 +26,8 @@ const AddPost = ({ setResult }: Props) => {
   const userImgPath = Store((s) => s.userImgPath);
   const [addPostErr, setAddPostErr] = useState(false);
 
-  const { addPost } = useAddPost();
+  const { addPost, loading } = useAddPost();
+  console.log(loading);
 
   const onSubmit: SubmitHandler<HomeSchemaForm> = async (data) => {
     const file = data.picturePath[0];
@@ -65,7 +66,11 @@ const AddPost = ({ setResult }: Props) => {
             />
           )}
           <div className="flex flex-col w-full">
-            <Input className="rounded-full" {...register("description")} />
+            <Input
+              className={`rounded-full`}
+              {...register("description")}
+              disabled={loading}
+            />
             {errors.description && (
               <p className="text-sm ml-3 text-red-800 mt-2">
                 {errors.description.message}
@@ -94,7 +99,12 @@ const AddPost = ({ setResult }: Props) => {
               </p>
             )}
           </div>
-          <button className="text-white bg-blue-500 px-2 py-[2px] rounded-full ">
+          <button
+            className={`text-white bg-blue-500 px-2 py-[2px] rounded-full ${
+              loading ? "bg-blue-500/50" : "bg-blue-500"
+            }`}
+            disabled={loading}
+          >
             Submit
           </button>
         </div>
