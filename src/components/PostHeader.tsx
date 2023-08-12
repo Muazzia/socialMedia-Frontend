@@ -85,6 +85,12 @@ const PostHeader = ({
             <div>
               <AiOutlineUserDelete
                 size={23}
+                tabIndex={0}
+                onKeyDown={(e: React.KeyboardEvent<SVGSVGElement>) => {
+                  if (e.key === "Enter") {
+                    handleAddFriend(data.userId);
+                  }
+                }}
                 className={"cursor-pointer  rounded-xl"}
                 onClick={() => handleAddFriend(data.userId)}
               />
@@ -93,6 +99,12 @@ const PostHeader = ({
             <div>
               <AiOutlineUserAdd
                 size={23}
+                tabIndex={0}
+                onKeyDown={(e: React.KeyboardEvent<SVGSVGElement>) => {
+                  if (e.key === "Enter") {
+                    handleAddFriend(data.userId);
+                  }
+                }}
                 className={"cursor-pointer  rounded-xl text-white"}
                 onClick={() => handleAddFriend(data.userId)}
               />
