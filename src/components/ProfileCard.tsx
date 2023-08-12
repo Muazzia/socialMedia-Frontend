@@ -21,6 +21,11 @@ import {
   DialogTrigger,
 } from "./shad/ui/dialog";
 import { staticUrlPath } from "@/services/apiClient";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/shad/ui/avatar";
 
 interface Props {
   id: string;
@@ -85,15 +90,15 @@ const ProfileCard = ({ id }: Props) => {
       <div className="one flex items-center justify-between">
         <div className="image flex items-center gap-2">
           <div className=" rounded-full w-9 bg-cover h-9 overflow-hidden ">
-            {result?.picturePath ? (
-              <img
-                src={`${staticUrlPath}/${result?.picturePath}`}
-                alt="profilePic"
-                className="h-full w-full"
-              />
-            ) : (
-              <img src="" alt="profilePic" className="h-full w-full" />
-            )}
+            <Avatar className="h-full w-full">
+              {result?.picturePath && (
+                <AvatarImage
+                  src={`${staticUrlPath}/${result?.picturePath}`}
+                  alt="profileImg"
+                />
+              )}
+              <AvatarFallback>P</AvatarFallback>
+            </Avatar>
           </div>
           <div className="flex flex-col">
             <h2 className="text-md">

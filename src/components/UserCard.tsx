@@ -5,6 +5,11 @@ import Store from "../store/store";
 import { Link } from "react-router-dom";
 import { BiMessageAltDetail } from "react-icons/bi";
 import { staticUrlPath } from "@/services/apiClient";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/shad/ui/avatar";
 
 interface Props {
   data: User;
@@ -24,19 +29,15 @@ const UserCard = ({ data, isFriend, isUser }: Props) => {
     <div className="flex flex-col justify-center gap-5 border border-white/40 px-3 py-3 rounded-md">
       <div className="top flex gap-5 items-center">
         <div className="img w-10">
-          {data.picturePath ? (
-            <img
-              src={`${staticUrlPath}/${data.picturePath}`}
-              alt="profileImage"
-              className="w-9 bg-cover rounded-full h-9 overflow-hidden align-middle"
-            />
-          ) : (
-            <img
-              src={""}
-              alt="profileImage"
-              className="w-9 bg-cover rounded-full h-9 overflow-hidden"
-            />
-          )}
+          <Avatar className="h-full w-full">
+            {data.picturePath && (
+              <AvatarImage
+                src={`${staticUrlPath}/${data.picturePath}`}
+                alt="profileImg"
+              />
+            )}
+            <AvatarFallback>P</AvatarFallback>
+          </Avatar>
         </div>
         <div className="info flex justify-between w-full">
           <Link to={`../profile/${data._id}`} className="hover:underline">

@@ -8,6 +8,11 @@ import { AiOutlinePicture } from "react-icons/ai";
 import { PostProp } from "../hooks/usePosts";
 import { useState } from "react";
 import { staticUrlPath } from "@/services/apiClient";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/shad/ui/avatar";
 
 interface Props {
   setResult: React.Dispatch<React.SetStateAction<PostProp[] | undefined>>;
@@ -52,7 +57,16 @@ const AddPost = ({ setResult }: Props) => {
     <div className="input flex flex-col p-4  bg-[#202020] rounded-md  sm:w-[550px] md:w-full">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="top flex justify-between gap-5 mb-6">
-          {userImgPath ? (
+          <Avatar className="w-10 h-10">
+            {userImgPath && (
+              <AvatarImage
+                src={`${staticUrlPath}/${userImgPath}`}
+                alt="profileImg"
+              />
+            )}
+            <AvatarFallback>P</AvatarFallback>
+          </Avatar>
+          {/* {userImgPath ? (
             <img
               src={`${staticUrlPath}/${userImgPath}`}
               alt="profileImage"
@@ -64,7 +78,7 @@ const AddPost = ({ setResult }: Props) => {
               alt="profileImage"
               className="w-9 bg-cover rounded-full h-9"
             />
-          )}
+          )} */}
           <div className="flex flex-col w-full">
             <Input
               className={`rounded-full`}

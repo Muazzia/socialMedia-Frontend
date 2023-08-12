@@ -3,6 +3,11 @@ import Store, { UserF } from "../store/store";
 import useAddFriend from "../hooks/useAddFriend";
 import { Link } from "react-router-dom";
 import { staticUrlPath } from "@/services/apiClient";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/shad/ui/avatar";
 
 interface Props {
   data: UserF;
@@ -20,15 +25,15 @@ const FriendListComp = ({ data }: Props) => {
     <div className="one flex items-center justify-between">
       <div className="image flex items-center gap-2">
         <div className=" rounded-full w-9 bg-cover h-9 overflow-hidden ">
-          {data.picturePath ? (
-            <img
-              src={`${staticUrlPath}/${data.picturePath}`}
-              alt="profilePic"
-              className="h-full w-full"
-            />
-          ) : (
-            <img src="" alt="profilePic" className="h-full w-full" />
-          )}
+          <Avatar className="h-full w-full">
+            {data.picturePath && (
+              <AvatarImage
+                src={`${staticUrlPath}/${data.picturePath}`}
+                alt="profileImg"
+              />
+            )}
+            <AvatarFallback>P</AvatarFallback>
+          </Avatar>
         </div>
         <div className="flex flex-col">
           <Link to={`/profile/${data._id}`} className="hover:underline">

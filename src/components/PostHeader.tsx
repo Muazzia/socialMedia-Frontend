@@ -15,6 +15,8 @@ import { PostProp } from "../hooks/usePosts";
 import useRemovePost from "../hooks/useRemovePost";
 import Store from "../store/store";
 import { staticUrlPath } from "@/services/apiClient";
+import { Avatar, AvatarFallback } from "@/components/shad/ui/avatar";
+import { AvatarImage } from "@radix-ui/react-avatar";
 
 interface Props {
   data: PostProp;
@@ -57,15 +59,15 @@ const PostHeader = ({
     <div className="one flex items-center justify-between">
       <div className="image flex items-center gap-2">
         <div className="rounded-full w-9 h-9 object-cover overflow-hidden ">
-          {data.userPicturePath ? (
-            <img
-              src={`${staticUrlPath}/${data.userPicturePath}`}
-              alt="profilePic"
-              className="w-full h-full "
-            />
-          ) : (
-            <img src="" alt="profilePic" className="w-full h-full " />
-          )}
+          <Avatar className="h-full w-full">
+            {data.userPicturePath && (
+              <AvatarImage
+                src={`${staticUrlPath}/${data.userPicturePath}`}
+                alt="profileImg"
+              />
+            )}
+            <AvatarFallback>P</AvatarFallback>
+          </Avatar>
         </div>
         <div className="flex flex-col">
           <Link to={`/profile/${data.userId}`} preventScrollReset={true}>
