@@ -89,20 +89,20 @@ const ProfileCard = ({ id }: Props) => {
     <div className=" bg-[#202020] flex flex-col gap-3  rounded-md p-4 sm:w-[550px] md:w-full ">
       <div className="one flex items-center justify-between">
         <div className="image flex items-center gap-2">
-          <div className=" rounded-full w-9 bg-cover h-9 overflow-hidden ">
-            <Avatar className="h-full w-full">
-              {result?.picturePath && (
-                <AvatarImage
-                  src={`${staticUrlPath}/${result?.picturePath}`}
-                  alt="profileImg"
-                />
-              )}
-              <AvatarFallback>P</AvatarFallback>
-            </Avatar>
-          </div>
+          <Avatar className="h-10 w-10">
+            {result?.picturePath && (
+              <AvatarImage
+                src={`${staticUrlPath}/${result?.picturePath}`}
+                alt="profileImg"
+              />
+            )}
+            <AvatarFallback>P</AvatarFallback>
+          </Avatar>
           <div className="flex flex-col">
             <h2 className="text-md">
-              {result?.firstName + " " + result?.lastName}
+              {result?.firstName
+                ? result?.firstName + " " + result?.lastName
+                : "Name"}
             </h2>
             <p className="text-sm text-white/60">{result?.location}</p>
           </div>
@@ -291,11 +291,11 @@ const ProfileCard = ({ id }: Props) => {
       <div className="two flex flex-col gap-3">
         <div className="flex gap-3">
           <FiMapPin size={23} color={"#FFFFFF99"} />
-          <p className="text-white/60">{result?.location || "Unavailable"}</p>
+          <p className="text-white/60">{result?.location || "Location"}</p>
         </div>
         <div className="flex gap-3">
           <PiBagSimpleBold size={23} color={"#FFFFFF99"} />
-          <p className="text-white/60">{result?.occupation || "Unavailable"}</p>
+          <p className="text-white/60">{result?.occupation || "Occupation"}</p>
         </div>
       </div>
       <div className="br h-[1px] w-full bg-white/50" />
