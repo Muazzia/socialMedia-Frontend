@@ -122,7 +122,7 @@ function Dia({
   result: User | undefined;
   setResult: React.Dispatch<React.SetStateAction<User | undefined>>;
 }) {
-  const { fetch } = useUpdateUser();
+  const { fetch, loading } = useUpdateUser();
   const [isOpen, setIsOpen] = useState(false);
 
   const setUserImgPath = Store((s) => s.setUserImgPath);
@@ -327,7 +327,10 @@ function Dia({
           <DialogFooter>
             <button
               type="submit"
-              className="bg-black  text-white font-bold w-fit rounded-md px-2 py-[4px]"
+              className={`  text-white font-bold w-fit rounded-md px-2 py-[4px] ${
+                loading ? "bg-zinc-600" : "bg-black"
+              }`}
+              disabled={loading}
             >
               Save changes
             </button>
