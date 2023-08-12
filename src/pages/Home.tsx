@@ -5,6 +5,7 @@ import ProfileCard from "../components/ProfileCard";
 import useGetFriends from "../hooks/useGetFriends";
 import usePosts from "../hooks/usePosts";
 import Store from "../store/store";
+import { Skeleton } from "@/components/shad/ui/skeleton";
 
 const Home = () => {
   const userFriends = Store((e) => e.userFriends);
@@ -46,7 +47,13 @@ const Home = () => {
             ) : friendsErr === false ? (
               <p>Error while fetching Friends</p>
             ) : (
-              <p>...Loading</p>
+              <div className="flex flex-col gap-4">
+                {Array(5)
+                  .fill("1")
+                  .map((_, i) => (
+                    <Skele key={i} />
+                  ))}
+              </div>
             )}
           </div>
         </main>
@@ -62,5 +69,20 @@ const Home = () => {
     </section>
   );
 };
+
+function Skele() {
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center space-x-4">
+        <Skeleton className="h-12 w-12 rounded-full" />
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[250px]" />
+        </div>
+      </div>
+      <Skeleton className="h-[200px] w-full" />
+    </div>
+  );
+}
 
 export default Home;
