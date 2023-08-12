@@ -21,11 +21,13 @@ const useProfileCard = (id: string) => {
   const [res, setRes] = useState<User>();
   const [error, setError] = useState({} as AxiosError);
   const [success, setSuccess] = useState<Boolean | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const setUserImgPath = Store((s) => s.setUserImgPath);
 
   useEffect(() => {
     const fetcingData = async () => {
       try {
+        setLoading(true);
         const authToken = localStorage.getItem("authToken");
         const userId = localStorage.getItem("socialUserId");
 
@@ -37,16 +39,18 @@ const useProfileCard = (id: string) => {
         setRes(response.data);
         if (userId === id) setUserImgPath(response.data.picturePath || "");
         setSuccess(true);
+        setLoading(false);
       } catch (err: any) {
         setError(err as AxiosError);
         setSuccess(false);
+        setLoading(false);
       }
     };
 
     fetcingData();
   }, []);
 
-  return { res, error, success, setRes };
+  return { res, error, success, setRes, loading };
 };
 
 export default useProfileCard;

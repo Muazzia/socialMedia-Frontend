@@ -80,7 +80,7 @@ const Message = () => {
     if (inputRef.current) inputRef.current.focus();
   }, []);
 
-  const { res } = useProfileCard(id || "");
+  const { res, loading } = useProfileCard(id || "");
 
   return (
     <section id="message" className="">
@@ -112,7 +112,8 @@ const Message = () => {
         <form onSubmit={handleSubmit}>
           <div className="input flex gap-3 mt-2 border-t-2 border-white/50 items-end">
             <Input
-              className="h-8  mt-2"
+              className={`h-8  mt-2 `}
+              disabled={loading}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               ref={inputRef}
@@ -120,7 +121,9 @@ const Message = () => {
             <input
               type="submit"
               value={"Send"}
-              className="px-2 h-8 bg-blue-500 rounded-md hover:bg-blue-500/50 cursor-pointer"
+              className={`px-2 h-8 bg-blue-500 rounded-md hover:bg-blue-500/50 cursor-pointer ${
+                loading && "bg-blue-500/70"
+              }`}
             />
           </div>
         </form>
