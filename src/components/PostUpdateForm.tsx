@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useUpdatePost from "../hooks/useUpdatePost";
 import { Input } from "@/components/shad/ui/input";
 import { PostProp } from "../hooks/usePosts";
+import { staticUrlPath } from "@/services/apiClient";
 
 interface Props {
   data: PostProp;
@@ -37,7 +38,7 @@ const PostUpdateForm = ({
     let img;
     if (!containsImage) {
       try {
-        const res = await fetch(`http://localhost:3000/${data.picturePath}`);
+        const res = await fetch(`${staticUrlPath}/${data.picturePath}`);
         if (res?.ok) {
           const blob = await res.blob();
           img = new File([blob], `${data.picturePath}`, {
@@ -83,7 +84,7 @@ const PostUpdateForm = ({
       {!selectedFile ? (
         <div className="three">
           <img
-            src={`http://localhost:3000/${data.picturePath}`}
+            src={`${staticUrlPath}/${data.picturePath}`}
             className="w-full "
             alt="post Img"
           />

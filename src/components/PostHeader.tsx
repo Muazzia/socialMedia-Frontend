@@ -14,6 +14,7 @@ import useAddFriend from "../hooks/useAddFriend";
 import { PostProp } from "../hooks/usePosts";
 import useRemovePost from "../hooks/useRemovePost";
 import Store from "../store/store";
+import { staticUrlPath } from "@/services/apiClient";
 
 interface Props {
   data: PostProp;
@@ -58,7 +59,7 @@ const PostHeader = ({
         <div className="rounded-full w-9 h-9 object-cover overflow-hidden ">
           {data.userPicturePath ? (
             <img
-              src={`http://localhost:3000/${data.userPicturePath}`}
+              src={`${staticUrlPath}/${data.userPicturePath}`}
               alt="profilePic"
               className="w-full h-full "
             />

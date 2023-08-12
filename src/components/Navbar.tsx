@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/shad/ui/dropdown-menu";
 import { Input } from "@/components/shad/ui/input";
+import { staticUrlPath } from "@/services/apiClient";
 import Store from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -126,7 +127,7 @@ function AvatarMenu() {
         <Avatar>
           {userImgPath && (
             <AvatarImage
-              src={`http://localhost:3000/${userImgPath}`}
+              src={`${staticUrlPath}/${userImgPath}`}
               alt="profileImg"
             />
           )}

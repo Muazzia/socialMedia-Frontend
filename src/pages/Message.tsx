@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import { Input } from "@/components/shad/ui/input";
 import useProfileCard from "../hooks/useProfileCard";
+import { staticUrlPath } from "@/services/apiClient";
 
-const socket = io("http://localhost:3000");
+const socket = io(`${staticUrlPath}`);
 
 interface ChatMessage {
   message: string;

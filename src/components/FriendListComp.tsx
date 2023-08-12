@@ -2,6 +2,7 @@ import { AiOutlineUserDelete } from "react-icons/ai";
 import Store, { UserF } from "../store/store";
 import useAddFriend from "../hooks/useAddFriend";
 import { Link } from "react-router-dom";
+import { staticUrlPath } from "@/services/apiClient";
 
 interface Props {
   data: UserF;
@@ -21,7 +22,7 @@ const FriendListComp = ({ data }: Props) => {
         <div className=" rounded-full w-9 bg-cover h-9 overflow-hidden ">
           {data.picturePath ? (
             <img
-              src={`http://localhost:3000/${data.picturePath}`}
+              src={`${staticUrlPath}/${data.picturePath}`}
               alt="profilePic"
               className="h-full w-full"
             />

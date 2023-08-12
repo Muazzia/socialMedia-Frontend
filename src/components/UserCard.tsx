@@ -4,6 +4,7 @@ import useAddFriend from "../hooks/useAddFriend";
 import Store from "../store/store";
 import { Link } from "react-router-dom";
 import { BiMessageAltDetail } from "react-icons/bi";
+import { staticUrlPath } from "@/services/apiClient";
 
 interface Props {
   data: User;
@@ -25,7 +26,7 @@ const UserCard = ({ data, isFriend, isUser }: Props) => {
         <div className="img w-10">
           {data.picturePath ? (
             <img
-              src={`http://localhost:3000/${data.picturePath}`}
+              src={`${staticUrlPath}/${data.picturePath}`}
               alt="profileImage"
               className="w-9 bg-cover rounded-full h-9 overflow-hidden align-middle"
             />

@@ -20,6 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./shad/ui/dialog";
+import { staticUrlPath } from "@/services/apiClient";
 
 interface Props {
   id: string;
@@ -86,7 +87,7 @@ const ProfileCard = ({ id }: Props) => {
           <div className=" rounded-full w-9 bg-cover h-9 overflow-hidden ">
             {result?.picturePath ? (
               <img
-                src={`http://localhost:3000/${result?.picturePath}`}
+                src={`${staticUrlPath}/${result?.picturePath}`}
                 alt="profilePic"
                 className="h-full w-full"
               />

@@ -4,6 +4,7 @@ import useAddLike from "../hooks/useAddLike";
 import { PostProp } from "../hooks/usePosts";
 import PostHeader from "./PostHeader";
 import PostUpdateForm from "./PostUpdateForm";
+import { staticUrlPath } from "@/services/apiClient";
 
 interface PostP {
   data: PostProp;
@@ -59,7 +60,7 @@ const Post = ({
           </div>
           <div className="three">
             <img
-              src={`http://localhost:3000/${data.picturePath}`}
+              src={`${staticUrlPath}/${data.picturePath}`}
               className="w-full "
               alt="post Img"
             />

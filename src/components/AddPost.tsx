@@ -7,6 +7,7 @@ import { Input } from "@/components/shad/ui/input";
 import { AiOutlinePicture } from "react-icons/ai";
 import { PostProp } from "../hooks/usePosts";
 import { useState } from "react";
+import { staticUrlPath } from "@/services/apiClient";
 
 interface Props {
   setResult: React.Dispatch<React.SetStateAction<PostProp[] | undefined>>;
@@ -52,7 +53,7 @@ const AddPost = ({ setResult }: Props) => {
         <div className="top flex justify-between gap-5 mb-6">
           {userImgPath ? (
             <img
-              src={`http://localhost:3000/${userImgPath}`}
+              src={`${staticUrlPath}/${userImgPath}`}
               alt="profileImage"
               className="w-9 bg-cover rounded-full h-9"
             />
