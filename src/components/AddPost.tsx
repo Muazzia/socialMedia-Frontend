@@ -32,7 +32,6 @@ const AddPost = ({ setResult }: Props) => {
   const [addPostErr, setAddPostErr] = useState(false);
 
   const { addPost, loading } = useAddPost();
-  console.log(loading);
 
   const onSubmit: SubmitHandler<HomeSchemaForm> = async (data) => {
     const file = data.picturePath[0];
@@ -66,19 +65,6 @@ const AddPost = ({ setResult }: Props) => {
             )}
             <AvatarFallback>P</AvatarFallback>
           </Avatar>
-          {/* {userImgPath ? (
-            <img
-              src={`${staticUrlPath}/${userImgPath}`}
-              alt="profileImage"
-              className="w-9 bg-cover rounded-full h-9"
-            />
-          ) : (
-            <img
-              src=""
-              alt="profileImage"
-              className="w-9 bg-cover rounded-full h-9"
-            />
-          )} */}
           <div className="flex flex-col w-full">
             <Input
               className={`rounded-full`}
