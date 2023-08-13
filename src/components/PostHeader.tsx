@@ -127,7 +127,7 @@ const PostHeader = ({
             <DropdownMenuContent className="text-black px-[3px] w-[150px] py-[3px] flex flex-col gap-[1px]">
               <DropdownMenuItem
                 onClick={handleDelete}
-                className="flex justify-between rounded-md"
+                className="flex justify-between rounded-md cursor-pointer"
               >
                 <p className="font-semibold uppercase">Delete</p>
                 <IconContext.Provider
@@ -142,7 +142,7 @@ const PostHeader = ({
                 onClick={() => {
                   setShowUpdate(!showUpdate);
                 }}
-                className="flex justify-between rounded-md"
+                className="flex justify-between rounded-md cursor-pointer"
               >
                 <p className="font-semibold uppercase">Update</p>
                 <IconContext.Provider
