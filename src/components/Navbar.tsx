@@ -14,7 +14,6 @@ import { Input } from "@/components/shad/ui/input";
 import { staticUrlPath } from "@/services/apiClient";
 import Store from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import * as z from "zod";
@@ -29,8 +28,6 @@ const schema = z.object({
 type SearchSchema = z.infer<typeof schema>;
 
 const Navbar = () => {
-  const [showMenu, setShowMenu] = useState(false);
-
   const navigate = useNavigate();
 
   const { register, handleSubmit, reset } = useForm<SearchSchema>({
