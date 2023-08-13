@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useAddPost from "../hooks/useAddPost";
 import { Input } from "@/components/shad/ui/input";
 import { AiOutlinePicture } from "react-icons/ai";
-import { PostProp } from "../hooks/usePosts";
 import { useState } from "react";
 import { staticUrlPath } from "@/services/apiClient";
 import {
@@ -13,12 +12,9 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/shad/ui/avatar";
+import { useQueryClient } from "@tanstack/react-query";
 
-interface Props {
-  setResult: React.Dispatch<React.SetStateAction<PostProp[] | undefined>>;
-}
-
-const AddPost = ({ setResult }: Props) => {
+const AddPost = () => {
   const {
     register,
     handleSubmit,
@@ -33,6 +29,8 @@ const AddPost = ({ setResult }: Props) => {
 
   const { addPost, loading } = useAddPost();
 
+  const queryClient = useQueryClient();
+
   const onSubmit: SubmitHandler<HomeSchemaForm> = async (data) => {
     const file = data.picturePath[0];
     const userId = localStorage.getItem("socialUserId");
@@ -44,7 +42,7 @@ const AddPost = ({ setResult }: Props) => {
 
     const res = await addPost(formData);
     if (res) {
-      setResult(res.reverse());
+      queryClient.invalidateQueries({ queryKey: ["posts", userImgPath] });
       setAddPostErr(false);
       reset();
     }

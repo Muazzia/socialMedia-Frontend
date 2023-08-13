@@ -6,20 +6,15 @@ import useUpdatePost from "../hooks/useUpdatePost";
 import { Input } from "@/components/shad/ui/input";
 import { PostProp } from "../hooks/usePosts";
 import { staticUrlPath } from "@/services/apiClient";
+import { useQueryClient } from "@tanstack/react-query";
+import Store from "@/store/store";
 
 interface Props {
   data: PostProp;
   setShowUpdate: React.Dispatch<React.SetStateAction<Boolean>>;
-  setUpdated: React.Dispatch<React.SetStateAction<PostProp[] | undefined>>;
-  arrPost: PostProp[];
 }
 
-const PostUpdateForm = ({
-  data,
-  arrPost,
-  setShowUpdate,
-  setUpdated,
-}: Props) => {
+const PostUpdateForm = ({ data, setShowUpdate }: Props) => {
   const [selectedFile, setSelectedFile] = useState<Boolean>(false);
   const [containsImage, setContainsImage] = useState<Boolean>(false);
 
@@ -33,6 +28,8 @@ const PostUpdateForm = ({
   });
 
   const { fetchUpdate } = useUpdatePost();
+  const queryClient = useQueryClient();
+  const userImgPath = Store((s) => s.userImgPath);
 
   const onSubmit: SubmitHandler<UpdateSchemaForm> = async (d) => {
     let img;
@@ -59,9 +56,7 @@ const PostUpdateForm = ({
 
     const response = await fetchUpdate(data._id, formData);
     if (response?.data) {
-      setUpdated(
-        arrPost.map((a) => (a._id === response.data?._id ? response.data : a))
-      );
+      queryClient.invalidateQueries({ queryKey: ["posts", userImgPath] });
       reset();
       setShowUpdate(false);
       setSelectedFile(false);

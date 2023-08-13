@@ -1,10 +1,10 @@
 import Skele from "@/components/Skele";
+import useQueryPost from "@/hooks/useQueryPost";
 import AddPost from "../components/AddPost";
 import FriendListComp from "../components/FriendListComp";
 import Post from "../components/Post";
 import ProfileCard from "../components/ProfileCard";
 import useGetFriends from "../hooks/useGetFriends";
-import usePosts from "../hooks/usePosts";
 import Store from "../store/store";
 
 const Home = () => {
@@ -12,7 +12,8 @@ const Home = () => {
 
   const userId = localStorage.getItem("socialUserId");
 
-  const { error, res: result, setRes: setResult } = usePosts();
+  // const { error, res: result, setRes: setResult } = usePosts();
+  const { data: result, error } = useQueryPost();
 
   const { success: friendsErr } = useGetFriends();
 
@@ -24,11 +25,11 @@ const Home = () => {
           <ProfileCard id={userId || ""} />
         </aside>
         <main className="mt-5 mx-0 sm:mx-auto md:mx-0 md:mt-0 md:col-span-2 ">
-          <AddPost setResult={setResult} />
+          <AddPost />
           <div className="mt-4">
             {!friendsErr === false ? (
               <div className="flex flex-col gap-4 ">
-                {result?.map((p, i) => (
+                {result?.data.reverse().map((p, i) => (
                   <Post
                     key={i}
                     data={p}
@@ -39,8 +40,6 @@ const Home = () => {
                     }
                     isUserPost={userId === p.userId}
                     userId={userId || ""}
-                    setUpdated={setResult}
-                    arrPost={result}
                   />
                 ))}
               </div>

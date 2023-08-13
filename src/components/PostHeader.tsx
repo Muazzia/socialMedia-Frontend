@@ -17,30 +17,32 @@ import Store from "../store/store";
 import { staticUrlPath } from "@/services/apiClient";
 import { Avatar, AvatarFallback } from "@/components/shad/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
   data: PostProp;
-  arrPost: PostProp[];
   isFriend: Boolean;
   isUserPost: Boolean;
   showUpdate: Boolean;
-  setUpdated: React.Dispatch<React.SetStateAction<PostProp[] | undefined>>;
   setShowUpdate: React.Dispatch<React.SetStateAction<Boolean>>;
 }
 
 const PostHeader = ({
   data,
-  arrPost,
-  setUpdated,
   isFriend,
   isUserPost,
   showUpdate,
   setShowUpdate,
 }: Props) => {
+  const queryClient = useQueryClient();
+  const userImgPath = Store((s) => s.userImgPath);
+
   const handleDelete = async () => {
     try {
       const res = await deletePost(data._id);
-      setUpdated(arrPost.filter((a) => a._id !== res?._id));
+      if (res)
+        queryClient.invalidateQueries({ queryKey: ["posts", userImgPath] });
+      // setUpdated(arrPost.filter((a) => a._id !== res?._id));
     } catch (error) {
       console.error("Error deleting post:", error);
     }

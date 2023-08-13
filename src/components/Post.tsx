@@ -5,35 +5,33 @@ import { PostProp } from "../hooks/usePosts";
 import PostHeader from "./PostHeader";
 import PostUpdateForm from "./PostUpdateForm";
 import { staticUrlPath } from "@/services/apiClient";
+import { useQueryClient } from "@tanstack/react-query";
+import Store from "@/store/store";
 
 interface PostP {
   data: PostProp;
   isFriend: Boolean;
   isUserPost: Boolean;
   userId: string;
-  setUpdated: React.Dispatch<React.SetStateAction<PostProp[] | undefined>>;
-  arrPost: PostProp[];
+  setUpdated?: React.Dispatch<React.SetStateAction<PostProp[] | undefined>>;
+  arrPost?: PostProp[];
 }
 
-const Post = ({
-  data,
-  isFriend,
-  isUserPost,
-  userId,
-  setUpdated,
-  arrPost,
-}: PostP) => {
+const Post = ({ data, isFriend, isUserPost, userId }: PostP) => {
   const { toggleLike } = useAddLike(data._id);
+  const queryClient = useQueryClient();
+  const userImgPath = Store((s) => s.userImgPath);
 
   const handleLikeClick = async () => {
     const updatedPost = await toggleLike();
     if (updatedPost) {
-      setUpdated(
-        arrPost.map((a) => {
-          const val = a._id !== updatedPost._id ? a : updatedPost;
-          return val;
-        })
-      );
+      queryClient.invalidateQueries({ queryKey: ["posts", userImgPath] });
+      // setUpdated(
+      //   arrPost.map((a) => {
+      //     const val = a._id !== updatedPost._id ? a : updatedPost;
+      //     return val;
+      //   })
+      // );
     }
   };
 
@@ -48,11 +46,9 @@ const Post = ({
         <>
           <PostHeader
             data={data}
-            arrPost={arrPost}
             isFriend={isFriend}
             isUserPost={isUserPost}
             setShowUpdate={setShowUpdate}
-            setUpdated={setUpdated}
             showUpdate={showUpdate}
           />
           <div className="two">
@@ -101,12 +97,7 @@ const Post = ({
           </div>
         </>
       ) : (
-        <PostUpdateForm
-          data={data}
-          setShowUpdate={setShowUpdate}
-          setUpdated={setUpdated}
-          arrPost={arrPost}
-        />
+        <PostUpdateForm data={data} setShowUpdate={setShowUpdate} />
       )}
     </article>
   );
