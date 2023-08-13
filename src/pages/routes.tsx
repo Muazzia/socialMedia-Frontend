@@ -19,8 +19,8 @@ const routes = createBrowserRouter([
       { index: true, element: <LogoutPrevent children={<Login />} /> },
       { path: "register", element: <LogoutPrevent children={<Register />} /> },
       {
-        path: "/home",
-        element: <Home />,
+        path: "home",
+        element: <ProtectedRoute children={<Home />} />,
       },
       {
         path: "profile/:id",
@@ -34,16 +34,8 @@ const routes = createBrowserRouter([
         path: "message/:id",
         element: <ProtectedRoute children={<Message />} />,
       },
-      {
-        path: "*",
-        element: <Try />,
-      },
     ],
   },
 ]);
-
-function Try() {
-  return <p>This is try</p>;
-}
 
 export default routes;
