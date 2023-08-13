@@ -20,7 +20,7 @@ const routes = createBrowserRouter([
       { path: "register", element: <LogoutPrevent children={<Register />} /> },
       {
         path: "/home",
-        element: <ProtectedRoute children={<Home />} />,
+        element: <Home />,
       },
       {
         path: "profile/:id",
