@@ -26,7 +26,6 @@ const Home = () => {
         <main className="mt-5 mx-0 sm:mx-auto md:mx-0 md:mt-0 md:col-span-2 ">
           <AddPost setResult={setResult} />
           <div className="mt-4">
-            <p>asdf</p>
             {!friendsErr === false ? (
               <div className="flex flex-col gap-4 ">
                 {result?.map((p, i) => (
