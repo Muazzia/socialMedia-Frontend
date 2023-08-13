@@ -77,10 +77,12 @@ const Message = () => {
           setChat([...receivedChats.messages.reverse()]);
       }
     );
-    if (inputRef.current) inputRef.current.focus();
   }, []);
 
   const { res, loading } = useProfileCard(id || "");
+  useEffect(() => {
+    if (inputRef.current) inputRef.current.focus();
+  }, [loading]);
 
   return (
     <section id="message" className="">
