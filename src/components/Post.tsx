@@ -26,6 +26,16 @@ const Post = ({
   const { toggleLike } = useAddLike(data._id);
 
   const handleLikeClick = async () => {
+    setUpdated(
+      arrPost.map((a) => {
+        if (a._id === data._id) {
+          const updatedLikes = { ...a.likes, data_id: true };
+          return { ...a, likes: updatedLikes };
+        }
+        return a;
+      })
+    );
+
     const updatedPost = await toggleLike();
     if (updatedPost) {
       setUpdated(
