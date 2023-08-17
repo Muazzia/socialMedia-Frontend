@@ -12,11 +12,11 @@ export const schema = z
   .object({
     firstName: z
       .string()
-      .min(1, "FirstName is required")
+      .min(5, "FirstName should be 3 Characters Long")
       .max(255, "Max limit 255"),
     lastName: z
       .string()
-      .min(1, "lastName is required")
+      .min(5, "lastName should be 3 Characters Long")
       .max(255, "max limit is 255"),
     email: z
       .string()
