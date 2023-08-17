@@ -8,6 +8,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/shad/ui/avatar";
+import _ from "lodash";
 
 interface Props {
   data: UserF;
@@ -15,11 +16,18 @@ interface Props {
 
 const FriendListComp = ({ data }: Props) => {
   const setUserFrindsArr = Store((s) => s.setUserFrindsArr);
-  const { toggleFriend } = useAddFriend();
+  const userFriends = Store((s) => s.userFriends);
+  const { toggleFriend, loading } = useAddFriend();
 
   const handleClick = async (id: string) => {
+    const temp = _.cloneDeep(userFriends);
+    setUserFrindsArr(userFriends.filter((u) => u._id !== id));
+
     const response = await toggleFriend(id);
     if (response) setUserFrindsArr(response);
+    else {
+      setUserFrindsArr(temp);
+    }
   };
   return (
     <div className="one flex items-center justify-between">
@@ -43,11 +51,19 @@ const FriendListComp = ({ data }: Props) => {
         </div>
       </div>
       <div className="addFriend ">
-        <AiOutlineUserDelete
-          size={23}
-          className={"cursor-pointer  rounded-xl"}
+        <button
+          tabIndex={0}
+          disabled={loading}
+          onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => {
+            if (e.key === "Enter") {
+              handleClick(data._id);
+            }
+          }}
+          className={"cursor-pointer  rounded-xl disabled:cursor-default"}
           onClick={() => handleClick(data._id)}
-        />
+        >
+          <AiOutlineUserDelete size={23} />
+        </button>
       </div>
     </div>
   );
