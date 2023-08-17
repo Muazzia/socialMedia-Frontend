@@ -1,10 +1,11 @@
+import { staticUrlPath } from "@/services/apiClient";
+import _ from "lodash";
 import { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import useAddLike from "../hooks/useAddLike";
 import { PostProp } from "../hooks/usePosts";
 import PostHeader from "./PostHeader";
 import PostUpdateForm from "./PostUpdateForm";
-import { staticUrlPath } from "@/services/apiClient";
 
 interface PostP {
   data: PostProp;
@@ -23,10 +24,36 @@ const Post = ({
   setUpdated,
   arrPost,
 }: PostP) => {
-  const { toggleLike } = useAddLike(data._id);
+  const { toggleLike, loading } = useAddLike(data._id);
 
   const handleLikeClick = async () => {
+    const temp = _.cloneDeep(arrPost);
+
+    if (!data.likes[userId]) {
+      setUpdated(
+        arrPost.map((a) => {
+          if (a._id === data._id) {
+            const updatedLikes = { ...a.likes, [userId]: true };
+            return { ...a, likes: updatedLikes };
+          }
+          return a;
+        })
+      );
+    } else {
+      setUpdated(
+        arrPost.map((a) => {
+          if (a._id === data._id) {
+            delete a.likes[userId];
+            const updatedLikes = a.likes;
+            return { ...a, likes: updatedLikes };
+          }
+          return a;
+        })
+      );
+    }
+
     const updatedPost = await toggleLike();
+
     if (updatedPost) {
       setUpdated(
         arrPost.map((a) => {
@@ -34,6 +61,8 @@ const Post = ({
           return val;
         })
       );
+    } else {
+      setUpdated(temp);
     }
   };
 
@@ -67,33 +96,37 @@ const Post = ({
           </div>
           <div className="four flex items-center">
             {data.likes[userId] ? (
-              <AiFillHeart
-                size={24}
-                className={"cursor-pointer"}
+              <button
                 tabIndex={0}
-                onKeyDown={(e: React.KeyboardEvent<SVGSVGElement>) => {
+                disabled={loading}
+                onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => {
                   if (e.key === "Enter") {
                     handleLikeClick();
                   }
                 }}
+                className={"cursor-pointer disabled:cursor-default"}
                 onClick={() => {
                   handleLikeClick();
                 }}
-              />
+              >
+                <AiFillHeart size={"24px"} />
+              </button>
             ) : (
-              <AiOutlineHeart
-                size={24}
-                className={"cursor-pointer"}
+              <button
                 tabIndex={0}
-                onKeyDown={(e: React.KeyboardEvent<SVGSVGElement>) => {
+                disabled={loading}
+                onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => {
                   if (e.key === "Enter") {
                     handleLikeClick();
                   }
                 }}
+                className={"cursor-pointer disabled:cursor-default "}
                 onClick={() => {
                   handleLikeClick();
                 }}
-              />
+              >
+                <AiOutlineHeart size={24} />
+              </button>
             )}
             <p className="ml-1 text-white/40 select-none">
               {Object.keys(data.likes).length}
