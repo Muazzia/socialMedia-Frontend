@@ -17,6 +17,7 @@ import Store from "../store/store";
 import { staticUrlPath } from "@/services/apiClient";
 import { Avatar, AvatarFallback } from "@/components/shad/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
+import _ from "lodash";
 
 interface Props {
   data: PostProp;
@@ -47,13 +48,35 @@ const PostHeader = ({
   };
 
   const handleAddFriend = async (id: string) => {
+    const temp = _.cloneDeep(userFriends);
+
+    if (!userFriends.find((a) => a._id === id)) {
+      setUserFrindsArr([
+        ...userFriends,
+        {
+          _id: id,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          location: data.location || "",
+          occupation: data.occupation || "",
+          picturePath: data.userPicturePath || "",
+        },
+      ]);
+    } else {
+      setUserFrindsArr(userFriends.filter((u) => u._id !== id));
+    }
+
     const response = await toggleFriend(id);
     if (response) setUserFrindsArr(response);
+    else {
+      setUserFrindsArr(temp);
+    }
   };
 
   const { deletePost } = useRemovePost();
-  const { toggleFriend } = useAddFriend();
+  const { toggleFriend, loading } = useAddFriend();
   const setUserFrindsArr = Store((s) => s.setUserFrindsArr);
+  const userFriends = Store((s) => s.userFriends);
 
   return (
     <div className="one flex items-center justify-between">
@@ -85,33 +108,33 @@ const PostHeader = ({
           </Link>
 
           {isFriend ? (
-            <div>
-              <AiOutlineUserDelete
-                size={23}
-                tabIndex={0}
-                onKeyDown={(e: React.KeyboardEvent<SVGSVGElement>) => {
-                  if (e.key === "Enter") {
-                    handleAddFriend(data.userId);
-                  }
-                }}
-                className={"cursor-pointer  rounded-xl"}
-                onClick={() => handleAddFriend(data.userId)}
-              />
-            </div>
+            <button
+              tabIndex={0}
+              disabled={loading}
+              onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => {
+                if (e.key === "Enter") {
+                  handleAddFriend(data.userId);
+                }
+              }}
+              className={"cursor-pointer  rounded-xl disabled:cursor-default"}
+              onClick={() => handleAddFriend(data.userId)}
+            >
+              <AiOutlineUserDelete size={23} />
+            </button>
           ) : (
-            <div>
-              <AiOutlineUserAdd
-                size={23}
-                tabIndex={0}
-                onKeyDown={(e: React.KeyboardEvent<SVGSVGElement>) => {
-                  if (e.key === "Enter") {
-                    handleAddFriend(data.userId);
-                  }
-                }}
-                className={"cursor-pointer  rounded-xl text-white"}
-                onClick={() => handleAddFriend(data.userId)}
-              />
-            </div>
+            <button
+              tabIndex={0}
+              disabled={loading}
+              onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => {
+                if (e.key === "Enter") {
+                  handleAddFriend(data.userId);
+                }
+              }}
+              className={"cursor-pointer  rounded-xl disabled:cursor-default"}
+              onClick={() => handleAddFriend(data.userId)}
+            >
+              <AiOutlineUserAdd size={23} />
+            </button>
           )}
         </div>
       ) : (

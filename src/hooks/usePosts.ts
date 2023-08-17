@@ -9,6 +9,7 @@ export type PostProp = {
   firstName: string;
   lastName: string;
   location?: string;
+  occupation?: string;
   description?: string;
   userPicturePath?: string;
   picturePath?: string;
