@@ -20,6 +20,8 @@ interface Chat {
   messages: ChatMessage[];
 }
 
+const del = "asd";
+
 const Message = () => {
   const [chat, setChat] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState("");
