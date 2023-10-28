@@ -15,6 +15,7 @@ export interface User {
   occupation?: string;
   viewedProfile: number;
   impressions: number;
+  imgSecureUrl: string;
 }
 
 const useProfileCard = (id: string) => {
@@ -37,7 +38,11 @@ const useProfileCard = (id: string) => {
           },
         });
         setRes(response.data);
-        if (userId === id) setUserImgPath(response.data.picturePath || "");
+        if (userId === id) {
+          if (response.data.imgSecureUrl) {
+            setUserImgPath(response.data.imgSecureUrl);
+          } else setUserImgPath(response.data.picturePath || "");
+        }
         setSuccess(true);
         setLoading(false);
       } catch (err: any) {

@@ -15,6 +15,7 @@ export type PostProp = {
   picturePath?: string;
   likes: { [key: string]: boolean };
   comments: string[];
+  imgSecureUrl: string;
 };
 
 const usePosts = () => {

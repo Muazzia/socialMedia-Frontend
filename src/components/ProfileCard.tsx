@@ -56,7 +56,11 @@ const ProfileCard = ({ id }: Props) => {
           <Avatar className="h-10 w-10">
             {result?.picturePath && (
               <AvatarImage
-                src={`${staticUrlPath}/${result?.picturePath}`}
+                src={
+                  result.imgSecureUrl
+                    ? result.imgSecureUrl
+                    : `${staticUrlPath}/${result?.picturePath}`
+                }
                 alt="profileImg"
               />
             )}

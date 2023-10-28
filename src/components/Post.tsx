@@ -89,7 +89,11 @@ const Post = ({
           </div>
           <div className="three">
             <img
-              src={`${staticUrlPath}/${data.picturePath}`}
+              src={
+                data.imgSecureUrl
+                  ? data.imgSecureUrl
+                  : `${staticUrlPath}/${data.picturePath}`
+              }
               className="aspect-square object-cover w-full"
               alt="post Img"
             />
