@@ -69,18 +69,17 @@ const PostUpdateForm = ({
     }
   };
 
-  // const ref: React.RefObject<HTMLInputElement> = useRef(null);
-  // useEffect(() => {
-  //   if (ref.current) ref.current.focus();
-  // }, []);
-
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
       <Input defaultValue={data.description} {...register("description")} />
       {!selectedFile ? (
         <div className="three">
           <img
-            src={`${staticUrlPath}/${data.picturePath}`}
+            src={
+              data.imgSecureUrl
+                ? data.imgSecureUrl
+                : `${staticUrlPath}/${data.picturePath}`
+            }
             className="w-full "
             alt="post Img"
           />
