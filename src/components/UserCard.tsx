@@ -16,7 +16,7 @@ interface Props {
   isFriend: boolean;
   isUser: boolean;
 }
-
+//
 const UserCard = ({ data, isFriend, isUser }: Props) => {
   const setUserFrindsArr = Store((s) => s.setUserFrindsArr);
   const { toggleFriend } = useAddFriend();
