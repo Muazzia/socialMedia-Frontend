@@ -1,23 +1,22 @@
+import { Avatar, AvatarFallback } from "@/components/shad/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/shad/ui/dropdown-menu";
+import { AvatarImage } from "@radix-ui/react-avatar";
+import _ from "lodash";
+import { IconContext } from "react-icons";
 import { AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
 import { BiMessageAltDetail } from "react-icons/bi";
-import { RxUpdate } from "react-icons/rx";
-import { IconContext } from "react-icons";
 import { MdDeleteForever } from "react-icons/md";
+import { RxUpdate } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import useAddFriend from "../hooks/useAddFriend";
 import { PostProp } from "../hooks/usePosts";
 import useRemovePost from "../hooks/useRemovePost";
 import Store from "../store/store";
-import { staticUrlPath } from "@/services/apiClient";
-import { Avatar, AvatarFallback } from "@/components/shad/ui/avatar";
-import { AvatarImage } from "@radix-ui/react-avatar";
-import _ from "lodash";
 
 interface Props {
   data: PostProp;
@@ -60,6 +59,7 @@ const PostHeader = ({
           location: data.location || "",
           occupation: data.occupation || "",
           picturePath: data.userPicturePath || "",
+          imgSecureUrl: data.imgSecureUrl,
         },
       ]);
     } else {
