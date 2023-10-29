@@ -85,11 +85,7 @@ const PostHeader = ({
           <Avatar className="h-full w-full">
             {data.userPicturePath && (
               <AvatarImage
-                src={
-                  data.imgSecureUrl
-                    ? data.imgSecureUrl
-                    : `${staticUrlPath}/${data.userPicturePath}`
-                }
+                src={data.userPicturePath}
                 alt="profileImg"
                 className="w-full h-full"
               />

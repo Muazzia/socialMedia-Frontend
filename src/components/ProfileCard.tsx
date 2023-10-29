@@ -157,7 +157,7 @@ function Dia({
     if (response) {
       setResult(response);
       setIsOpen(false);
-      setUserImgPath(response.picturePath || "");
+      setUserImgPath(response.imgSecureUrl || "");
       reset();
     }
   };

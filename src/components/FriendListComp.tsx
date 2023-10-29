@@ -1,14 +1,13 @@
-import { AiOutlineUserDelete } from "react-icons/ai";
-import Store, { UserF } from "../store/store";
-import useAddFriend from "../hooks/useAddFriend";
-import { Link } from "react-router-dom";
-import { staticUrlPath } from "@/services/apiClient";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/components/shad/ui/avatar";
 import _ from "lodash";
+import { AiOutlineUserDelete } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import useAddFriend from "../hooks/useAddFriend";
+import Store, { UserF } from "../store/store";
 
 interface Props {
   data: UserF;
@@ -35,10 +34,7 @@ const FriendListComp = ({ data }: Props) => {
         <div className=" rounded-full w-9 bg-cover h-9 overflow-hidden ">
           <Avatar className="h-full w-full">
             {data.picturePath && (
-              <AvatarImage
-                src={`${staticUrlPath}/${data.picturePath}`}
-                alt="profileImg"
-              />
+              <AvatarImage src={data.imgSecureUrl} alt="profileImg" />
             )}
             <AvatarFallback>P</AvatarFallback>
           </Avatar>

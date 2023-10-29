@@ -11,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/shad/ui/dropdown-menu";
 import { Input } from "@/components/shad/ui/input";
-import { staticUrlPath } from "@/services/apiClient";
 import Store from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -61,13 +60,6 @@ const Navbar = () => {
           )}
         </div>
         <div className="right">
-          {/* <div className="burger block md:hidden">
-            <GiHamburgerMenu
-              size={23}
-              color={"white"}
-              onClick={() => setShowMenu(!showMenu)}
-            />
-          </div> */}
           {token && (
             <div className="flex items-center ">
               <ul className="flex gap-5 text-white items-center">
@@ -109,6 +101,7 @@ const Navbar = () => {
 
 function AvatarMenu() {
   const userImgPath = Store((s) => s.userImgPath);
+
   const setUserImgPath = Store((s) => s.setUserImgPath);
   const navigate = useNavigate();
 
@@ -122,12 +115,7 @@ function AvatarMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          {userImgPath && (
-            <AvatarImage
-              src={`${staticUrlPath}/${userImgPath}`}
-              alt="profileImg"
-            />
-          )}
+          {userImgPath && <AvatarImage src={userImgPath} alt="profileImg" />}
           <AvatarFallback>P</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>

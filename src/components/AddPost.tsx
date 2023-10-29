@@ -4,7 +4,6 @@ import {
   AvatarImage,
 } from "@/components/shad/ui/avatar";
 import { Input } from "@/components/shad/ui/input";
-import { staticUrlPath } from "@/services/apiClient";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -57,12 +56,7 @@ const AddPost = ({ setResult }: Props) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="top flex justify-between gap-5 mb-6">
           <Avatar className="w-10 h-10">
-            {userImgPath && (
-              <AvatarImage
-                src={`${staticUrlPath}/${userImgPath}`}
-                alt="profileImg"
-              />
-            )}
+            {userImgPath && <AvatarImage src={userImgPath} alt="profileImg" />}
             <AvatarFallback>P</AvatarFallback>
           </Avatar>
           <div className="flex flex-col w-full">

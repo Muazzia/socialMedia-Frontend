@@ -7,6 +7,7 @@ export type UserF = {
   occupation: string;
   location: string;
   picturePath: string;
+  imgSecureUrl: string;
 };
 
 type S = {

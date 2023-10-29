@@ -32,7 +32,12 @@ const UserCard = ({ data, isFriend, isUser }: Props) => {
           <Avatar className="h-full w-full">
             {data.picturePath && (
               <AvatarImage
-                src={`${staticUrlPath}/${data.picturePath}`}
+                src={
+                  data.imgSecureUrl
+                    ? data.imgSecureUrl
+                    : `${staticUrlPath}/${data.picturePath}`
+                }
+                className="h-full w-full"
                 alt="profileImg"
               />
             )}
