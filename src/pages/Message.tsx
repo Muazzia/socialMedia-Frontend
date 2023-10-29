@@ -64,6 +64,31 @@ const Message = () => {
     };
   }, []);
 
+  // handles the reconnection
+  useEffect(() => {
+    if (socket.connected) {
+      console.log("Connection is restored");
+    } else {
+      console.log("Connection is establishing. Wait patiently");
+    }
+
+    let roomName: any;
+    if (userId && id) {
+      roomName = userId < id ? `${userId}-${id}` : `${id}-${userId}`;
+      socket.emit("joinRoom", roomName);
+      socket.emit(
+        "getAllChats",
+        {
+          sender: userId,
+          receiver: id,
+        },
+        (receivedChats: Chat) => {
+          if (receivedChats?.messages !== chat)
+            setChat([...receivedChats.messages.reverse()]);
+        }
+      );
+    }
+  }, [socket.connected]);
   //   on reload handles
   useEffect(() => {
     socket.emit(
