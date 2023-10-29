@@ -16,8 +16,6 @@ const UserProfile = () => {
 
   const userFriends = Store((s) => s.userFriends);
 
-  console.log(result);
-
   return (
     <section
       id="UserProfile"
