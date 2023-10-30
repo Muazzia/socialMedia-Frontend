@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/shad/ui/input";
 import Store from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import * as z from "zod";
@@ -40,61 +41,63 @@ const Navbar = () => {
 
   const token = localStorage.getItem("authToken");
 
+  const [toggleMobileSearch, settoggleMobileSearch] = useState(false);
+
   return (
     <nav className="bg-black border-b border-b-black relative">
-      <div className="mx-4 lg:max-w-[1015px] lg:mx-auto flex p-3 justify-between items-center">
-        <div className="left text-xl text-white flex justify-between items-center gap-2">
-          <Link to={"/home"} className="logo cursor-pointer font-bold text  ">
-            Social Media
-          </Link>
-          {token && (
-            <div className="search hidden md:block">
-              <form onSubmit={handleSubmit(onSubmit)} className="flex">
+      <div className="mx-4 lg:max-w-[1015px] lg:mx-auto p-3">
+        <div className="flex justify-between items-center">
+          <div className="left text-xl text-white flex justify-between items-center gap-2">
+            <Link to={"/home"} className="logo cursor-pointer font-bold text  ">
+              Social Media
+            </Link>
+            {token && (
+              <div className="search hidden md:block">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex">
+                  <Input
+                    placeholder="Search"
+                    {...register("search")}
+                    className="w-[180px] h-10 dark:autofill:bg-black"
+                  />
+                </form>
+              </div>
+            )}
+          </div>
+          <div className="right">
+            {token && (
+              <div className="flex items-center ">
+                <ul className="flex gap-5 text-white items-center">
+                  <li
+                    className="block md:hidden"
+                    onClick={() => settoggleMobileSearch(!toggleMobileSearch)}
+                  >
+                    Search
+                  </li>
+                  <li>
+                    <AvatarMenu />
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="mt-3 w-full mobileSearch">
+          {toggleMobileSearch && token && (
+            <div className="search md:hidden block">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex w-full items-center justify-center"
+              >
                 <Input
                   placeholder="Search"
                   {...register("search")}
-                  className="w-[180px] h-10 dark:autofill:bg-black"
+                  className="w-full sm:w-[80%] h-10 dark:autofill:bg-black"
                 />
               </form>
             </div>
           )}
         </div>
-        <div className="right">
-          {token && (
-            <div className="flex items-center ">
-              <ul className="flex gap-5 text-white items-center">
-                <li>
-                  <AvatarMenu />
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
       </div>
-      {/* Mobile menu */}
-      {/* <div
-        className={`mobile:menus z-20 block md:hidden transition-all ease-in-out 
-      duration-1000 absolute w-full bg-[#2c2d2f] min-h-[220px] top-0 text-white ${
-        showMenu
-          ? "translate-y-0 opacity-100"
-          : "translate-y-[-400px] opacity-0"
-      } `}
-      >
-        <ul className=" relative mx-4 py-6 px-3 text-lg space-y-4 ">
-          <li className="absolute right-0">
-            <AiOutlineClose
-              size={20}
-              onClick={() => {
-                setShowMenu(!showMenu);
-              }}
-            />
-          </li>
-
-          <li>
-            <AvatarMenu isMobile={true} setShowMenu={setShowMenu} />
-          </li>
-        </ul>
-      </div> */}
     </nav>
   );
 };
